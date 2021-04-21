@@ -38,6 +38,12 @@ Tip 2: you can also add an image using data-image tag
                     <p>Categories</p>
                 </a>
             </li>
+            <li>
+                <a class="nav-link" href="{{route('contract.create')}}">
+                    <i class="nc-icon nc-notes"></i>
+                    <p>CREATE CONTRACT</p>
+                </a>
+            </li>
             {{-- <li>
                 <a class="nav-link" href="{{route('consultation.index')}}">
                     <i class="nc-icon nc-paper-2"></i>

@@ -16,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(5);
+        $products = Product::paginate(4);
         $categories = Category::all();
 
         return view('dashboard.product.index', compact(['categories', 'products']));
@@ -43,15 +43,23 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $product = new Product();
-        $product->name = $request->name;
+        $product->name = $request->product_name;
+        // dd($request->category);
         $product->category_id = $request->category;
-        $product->benefit = $request->input('benefit');
-        if ($request->hasFile('image')) {
+        $product->benefit = $request->content_benefit;
+        if ($request->hasFile('image_illustration')) {
 
-            $image = $request->file('image');
+            $image = $request->file('image_illustration');
             $path = $image->store('images', 'public');
             $product->illustration = $path;
         }
+        if ($request->hasFile('image_product')) {
+
+            $image = $request->file('image_product');
+            $path = $image->store('images', 'public');
+            $product->image = $path;
+        }
+
         $product->save();
 
         return redirect()->route('product.index');
