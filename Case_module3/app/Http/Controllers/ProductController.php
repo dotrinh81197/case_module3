@@ -84,7 +84,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $categories = Category::all();
+        return view('dashboard.product.edit', compact(['product', 'categories']));
     }
 
     /**
@@ -96,7 +98,40 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->name = $request->product_name;
+        $product->category_id = $request->category;
+        $product->benefit = $request->content_benefit;
+
+        if ($request->hasFile('image')) {
+            // Nếu không thì in ra thông báo
+            $image = $request->file('product_image');
+            $storedPath = $image->move('images', $image->getClientOriginalName());
+            $product->image = $storedPath;
+        }
+        // Nếu có thì thục hiện lưu trữ file vào public/images
+
+
+
+
+        $product->save();
+
+        return redirect()->route('product.index')
+            ->with('success', 'Product updated successfully');
+    }
+
+
+
+    public function showbenefit($id)
+    {
+        $product = Product::findOrFail($id);
+        return response()->json($product);
+    }
+
+    public function getProductById($id)
+    {
+        $product = Product::findOrFail($id);
+        return response()->json($product);
     }
 
     /**
@@ -107,6 +142,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::findOrFail($id)->delete();
+        return response()->json(['success' => 'Sản phẩm đã được xóa thành công']);
     }
 }

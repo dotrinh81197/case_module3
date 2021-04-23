@@ -5,6 +5,7 @@ use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContractController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Models\Category;
@@ -51,11 +52,11 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::middleware('adminlogin')->prefix('category')->group(function () {
         // Matches The "/admin/users" URL
         Route::get('', [CategoryController::class, 'index'])->name('category.index');
-        // Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
+        Route::get('/list', [CategoryController::class, 'getCategoryList'])->name('category.getcategorylist');
         Route::post('/store', [CategoryController::class, 'store'])->name('category.store');
-        Route::put('/{user}', [CategoryController::class, 'update'])->name('category.update');
-        Route::delete('/{user}', [CategoryController::class, 'update'])->name('category.destroy');
-        Route::get('/{user}/edit', [CategoryController::class, 'edit'])->name('category.edit');
+        Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('category.destroy');
+        Route::get('/{category}/edit', [CategoryController::class, 'editForm'])->name('category.editform');
+        Route::put('/{category}/edit-form', [CategoryController::class, 'update'])->name('category.update');
     });
 
     Route::middleware('adminlogin')->prefix('product')->group(function () {
@@ -63,12 +64,13 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::get('', [ProductController::class, 'index'])->name('product.index');
         Route::get('/create', [ProductController::class, 'create'])->name('product.create');
         Route::post('/create', [ProductController::class, 'store'])->name('product.store');
-        Route::put('/{product}', [ProductController::class, 'update'])->name('product.update');
         Route::delete('/{product}', [ProductController::class, 'update'])->name('product.destroy');
         Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
+        Route::put('/{product}/edit', [ProductController::class, 'update'])->name('product.update');
+        Route::get('/{product}/edit-form', [ProductController::class, 'getProductById'])->name('product.showbenefit');
     });
 
-    Route::middleware('adminlogin')->prefix('contract')->group(function () {
+    Route::middleware('adminlogin')->prefix('consultation')->group(function () {
         // Matches The "/admin/users" URL
         Route::get('', [ConsultationController::class, 'index'])->name('consultation.index');
         Route::get('/create', [ConsultationController::class, 'create'])->name('consultation.create');
@@ -80,11 +82,11 @@ Route::middleware('auth')->prefix('admin')->group(function () {
 
     Route::middleware('adminlogin')->prefix('contract')->group(function () {
         // Matches The "/admin/users" URL
-        Route::get('', [Contract::class, 'index'])->name('contract.index');
-        Route::get('/create', [Contract::class, 'create'])->name('contract.create');
-        Route::post('/create', [Contract::class, 'store'])->name('contract.store');
-        Route::put('/{contract}', [Contract::class, 'update'])->name('contract.update');
-        Route::delete('/{contract}', [Contract::class, 'update'])->name('contract.destroy');
-        Route::get('/{contract}/edit', [Contract::class, 'edit'])->name('contract.edit');
+        Route::get('', [ContractController::class, 'index'])->name('contract.index');
+        Route::get('/create', [ContractController::class, 'create'])->name('contract.create');
+        Route::post('/create', [ContractController::class, 'store'])->name('contract.store');
+        Route::put('/{contract}', [ContractController::class, 'update'])->name('contract.update');
+        Route::delete('/{contract}', [ContractController::class, 'update'])->name('contract.destroy');
+        Route::get('/{contract}/edit', [ContractController::class, 'edit'])->name('contract.edit');
     });
 });

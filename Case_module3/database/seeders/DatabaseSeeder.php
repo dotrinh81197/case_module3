@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\category;
+use App\Models\periodic;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -15,16 +15,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $category = new category();
-        $category->name = "Sản phẩm chính";
-        $category->save();
+        $periodic = new Periodic();
+        $periodic->name = "Hằng năm";
+        $periodic->save();
 
-        $category = new category();
-        $category->name = "Sản phẩm bổ trợ";
-        $category->save();
+        $periodic = new Periodic();
+        $periodic->name = "Nửa năm";
+        $periodic->save();
 
-        $category = new category();
-        $category->name = "Sản phẩm khác";
-        $category->save();
+        $periodic = new Periodic();
+        $periodic->name = "hằng quý";
+        $periodic->save();
     }
 }

@@ -1,7 +1,7 @@
 @extends('layout.admin')
 
 @section('content_dashboard')
-<div class="container">
+<div class="container content_dashboard">
   <form  method="post" enctype="multipart/form-data" style="font-size: 15px;">
     @csrf
     <div class="form-row">

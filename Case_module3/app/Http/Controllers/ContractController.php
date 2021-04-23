@@ -3,42 +3,44 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\category;
+use App\Models\Contract;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Periodic;
+use Illuminate\Support\Facades\DB;
 
-
-class CategoryController extends Controller
+class ContractController extends Controller
 {
 
     public function index()
     {
-        $categories = Category::all();
+        $contracts = Contract::all();
 
-        return view('dashboard.category.index', compact(['categories']));
+        return view('dashboard.contract.index', compact(['contracts']));
     }
 
-
-
-    public function getCategoryList()
-    {
-        $categories = Category::all();
-
-        return view('dashboard.category.list', compact(['categories']));
-    }
 
     public function create()
     {
+        $products_main = DB::table('products')
+            ->where('category_id', '=', 1)
+            ->get();
+        $products_sub = DB::table('products')
+            ->where('category_id', '<>', 1)
+            ->get();
         $categories = Category::all();
+        $periodics = Periodic::all();
 
-        return view('dashboard.category.create', compact('categories'));
+        return view('dashboard.contract.create', compact(['categories', 'products_main', 'products_sub', 'periodics']));
     }
 
     public function store(Request $request)
     {
-        $category = new Category();
-        $category->name = $request->category_name;
-        $category->save();
+        $contract = new Contract();
+        $contract->name = $request->contract_name;
+        $contract->save();
 
-        return response()->json($category);
+        return response()->json($contract);
     }
 
     /**
@@ -47,10 +49,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function editForm($id)
+    public function show($id)
     {
-        $category = Category::findOrFail($id);
-        return view('dashboard.category.edit-form', compact('category'));
+        //
     }
 
     /**
@@ -73,15 +74,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = Category::findOrFail($id);
-
-        // Gán các thuộc tính mới
-        $category->name = $request->category_name;
-
-        // Lưu
-        $category->save();  
-
-        return;
+        //
     }
 
     /**

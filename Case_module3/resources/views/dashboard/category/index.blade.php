@@ -3,6 +3,7 @@
 @section('content_dashboard')
 
 
+
     <div class="content"> 
         <div class="content">
          <div class="container-fluid">
@@ -14,43 +15,14 @@
                              <p class="card-category"></p>
                          </div>
                          <div class="card-body table-full-width table-responsive">
-                             <table class="table table-hover table-striped" id="categoryTable">
-                               
-                                    <thead>
-                                       <td>Name</td>
-                                        <td>Category</td>   
-                                        <td></td>
-                                        <td></td>
-                                    </thead>
-                                    
-                              
-                                 <tbody>
-                              
-                                 @foreach ($categories as $category)
-                                 
-                                     <tr>
-                                        
-                                         <td>{{$category->name}}</td>
-                                         <td>
-                                            <a class="btn btn-warning" href="{{ route('category.edit', $category->id) }}">sửa</a></td> 
-                                          <td>
-                                          <a href="{{ route('category.destroy', $category->id) }}" class="btn btn-danger" type="submit" class="text-danger" onclick="return confirm('Bạn chắc chắn muốn xóa?')" > Xóa
-                                          </td>
-                                        
-                                         
-                                     </tr>
-                                 
-                                 @endforeach
-                                 </tbody>
-                                 <tfoot>
-                                     <td>
-                                         <a href="" class="btn btn-primary" data-toggle="modal" data-target="#categoriesModal">Thêm thể loại sản phẩm</a>
-                                     </td>
-                                 </tfoot>
-                             </table>
+                            
+                             <div id="category_list"></div>
+                             <a href="" class="btn btn-primary"  data-toggle="modal" data-target="#categoriesModal">Thêm thể loại sản phẩm</a>
+
                          </div>
-                     </div>
+                     </div> 
                  </div>
+
      </div>
 
 
@@ -69,7 +41,7 @@
             @csrf
           <div class="form-group">
             <label for="category_name" class="col-form-label">Tên thể loại</label>
-            <input type="text" class="form-control" id="category_name">
+            <input type="text" class="form-control" id="category_name" >
           </div>
           
     
@@ -82,40 +54,129 @@
   </div>
 </div>
 
+
+{{-- editCategory --}}
+<div class="modal fade" id="editCategoriesModal" tabindex="-1" role="dialog" aria-labelledby="categoriesModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="categoriesModalLabel">Sửa thể loại sản phẩm</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="categoryFrom" >
+            @csrf
+          <div class="form-group">
+            <input type="hidden" id="id" name="id" >
+            <label for="category_name" class="col-form-label">Tên thể loại</label>
+            <input type="text" class="form-control" id="category_name1" >
+          </div>
+       
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
 <script>
-
- $("#btn-submit").click(function(e){
-        e.preventDefault();
-        let category_name = $("#category_name").val();
-        let _token = $("input[name=_token]").val();
+  window.onload=loadList
   
+$("#btn-submit").click(function(e){
+  e.preventDefault();
+  let category_name = $("#category_name").val();
+  let _token = $("input[name=_token]").val();
+
+  $.ajax({
+      url:"{{route('category.store')}}",
+      type: "POST",
+      data:{
+          category_name : category_name,
+          _token : _token
+      },
+      
+      success:function(response){
+          
+          
+          if(response){
+              
+              category = response.name;
+              
+              $("#categoriesModal").modal('hide');    
+              $("#categoryFrom").trigger("reset");
+              loadList();
+
+          }
+      }
+  });
+});
+
+  
+ function openEditForm(idCategory) {
+        $("#editCategoriesModal").modal();
+
         $.ajax({
-            url:"{{route('category.store')}}",
-            type: "POST",
-            data:{
-                category_name : category_name,
-                _token : _token
-            },
-            
-            success:function(response){
-                
-                
-                if(response){
-                    
-                    category = response.name;
-                    
-                    $("#categoriesModal").modal('hide');    
-                     $("#categoryFrom").trigger("reset");
-                     renderhtml = "<tr><td>"+ category +"</td><td><a class='btn btn-warning' href='{{ route('category.edit', $category->id) }}'>sửa</td><td><a class='btn btn-danger' href='{{ route('category.destroy', $category->id) }}'>xóa</td></tr>"; 
-
-                     $("#categoryTable tbody").append(renderhtml);
-  
-                }
+            url: `/admin/category/${idCategory}/edit`,
+            success: function(xml) {
+                document.querySelector('#editCategoriesModal .modal-body').innerHTML = xml;
             }
+           
+        })
+    }
 
-        });
-    });
+    function submitEdit(idCategory) {
+     
+      let category_name = $("#category_name1").val();
+     let _token = $("input[name=_token]").val();
+       
+        $.ajax({
+            url: `/admin/category/${idCategory}/edit-form`,
+            type: 'PUT',
+            data: {
+              category_name:category_name,
+              _token:_token
+              
+            },
+           
+            success: function() {
+                // Alert success
+                alert("Edit successfully")
+
+                // Close Modal
+                $("#editCategoriesModal").modal("hide");
+
+                // Reload List
+                loadList();
+            },
+            error: function() {
+                alert("Edit Failed")
+            }
+        })
+       
+    }
+
+    function loadList() {
+        var url = `/admin/category/list`;
+
+        $.ajax({
+            url: url,
+
+            success: function(xml) {
+              
+                const categoryListElement = document.querySelector('#category_list');
+
+                categoryListElement.innerHTML = xml;
+            },
+            error: function(error) {
+                console.log("Xảy ra lỗi: " + error.message)
+            }
+        })
+    }
+
+  
 </script>
+  
 
 
 @endsection
