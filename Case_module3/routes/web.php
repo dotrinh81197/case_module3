@@ -64,10 +64,11 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::get('', [ProductController::class, 'index'])->name('product.index');
         Route::get('/create', [ProductController::class, 'create'])->name('product.create');
         Route::post('/create', [ProductController::class, 'store'])->name('product.store');
-        Route::delete('/{product}', [ProductController::class, 'update'])->name('product.destroy');
+        Route::delete('/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
         Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('product.edit');
         Route::put('/{product}/edit', [ProductController::class, 'update'])->name('product.update');
-        Route::get('/{product}/edit-form', [ProductController::class, 'getProductById'])->name('product.showbenefit');
+        Route::get('/{product}/showbenefit', [ProductController::class, 'getProductBenefit'])->name('product.showbenefit');
+        Route::get('/{product}/showillustration', [ProductController::class, 'getProductIllustration'])->name('product.showillustration');
     });
 
     Route::middleware('adminlogin')->prefix('consultation')->group(function () {

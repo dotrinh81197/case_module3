@@ -18,7 +18,7 @@
                                     <td>
                                        <a class="btn btn-warning" id="btn-edit" href="javascript:void(0)" onclick="openEditForm({{$category->id}})">sửa</a></td> 
                                      <td>
-                                     <a href="javascript:void(0)" class="btn btn-danger" type="submit" onclick="return confirm('Bạn chắc chắn muốn xóa?')"> Xóa
+                                     <a href="javascript:void(0)" class="btn btn-danger" type="button" onclick="deleteCategory({{$category->id}})"> Xóa   
                                      </a>
                                     </td>
                                    

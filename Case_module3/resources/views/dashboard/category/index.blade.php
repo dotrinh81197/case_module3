@@ -8,6 +8,9 @@
         <div class="content">
          <div class="container-fluid">
              <div class="row">
+            
+              
+             
                  <div class="col-md-12">
                      <div class="card strpied-tabled-with-hover">
                          <div class="card-header ">
@@ -37,12 +40,18 @@
         </button>
       </div>
       <div class="modal-body">
+      
         <form id="categoryFrom" >
             @csrf
           <div class="form-group">
             <label for="category_name" class="col-form-label">Tên thể loại</label>
             <input type="text" class="form-control" id="category_name" >
           </div>
+          @if ($errors->any())
+          @foreach($errors->all() as $nameError)
+              <p style="color:red">{{ $nameError }}</p>
+          @endforeach
+          @endif
           
     
         <button type="submit" class="btn btn-primary" id="btn-submit" > Thêm </button>
@@ -66,15 +75,6 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="categoryFrom" >
-            @csrf
-          <div class="form-group">
-            <input type="hidden" id="id" name="id" >
-            <label for="category_name" class="col-form-label">Tên thể loại</label>
-            <input type="text" class="form-control" id="category_name1" >
-          </div>
-       
-        </form>
       </div>
       
     </div>
@@ -109,6 +109,8 @@ $("#btn-submit").click(function(e){
 
           }
       }
+      
+      
   });
 });
 
@@ -174,7 +176,25 @@ $("#btn-submit").click(function(e){
         })
     }
 
-  
+  function deleteCategory(idCategory) {
+    let  _token=$("input[name=_token]").val()
+    let  url =  `/admin/category/${idCategory}`;
+    
+    if (confirm('Bạn có chắc chắn muốn xóa?')) {
+      
+        $.ajax({
+            url: `/admin/category/${idCategory}`,
+            type:'DELETE',
+            data:{
+               _token:_token
+            },
+            success:function(response){
+              loadList();
+            }
+        })
+    }
+    
+  }
 </script>
   
 

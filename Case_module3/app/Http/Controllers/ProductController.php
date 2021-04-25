@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 
+
 class ProductController extends Controller
 {
     /**
@@ -98,23 +99,31 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validatedData = $request->validate(
+            [
+                'category' => 'bail|required',
+            ],
+            [
+                'category.required' => 'Vui lòng chọn thể loại sản phẩm'
+            ]
+        );
+
+        $product = Product::create($validatedData);
         $product = Product::findOrFail($id);
         $product->name = $request->product_name;
         $product->category_id = $request->category;
         $product->benefit = $request->content_benefit;
 
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('illustration_image')) {
             // Nếu không thì in ra thông báo
-            $image = $request->file('product_image');
+            $image = $request->file('illustration_image');
             $storedPath = $image->move('images', $image->getClientOriginalName());
-            $product->image = $storedPath;
+            $product->illustration = $storedPath;
         }
         // Nếu có thì thục hiện lưu trữ file vào public/images
 
-
-
-
         $product->save();
+
 
         return redirect()->route('product.index')
             ->with('success', 'Product updated successfully');
@@ -122,17 +131,28 @@ class ProductController extends Controller
 
 
 
-    public function showbenefit($id)
+    // public function showbenefit($id)
+    // {
+    //     $product = Product::findOrFail($id);
+    //     return response()->json($product);
+    // }
+
+
+    // show product benefit
+    public function getProductBenefit($id)
     {
         $product = Product::findOrFail($id);
-        return response()->json($product);
+        return view('dashboard.product.showbenefit', compact('product'));
+    }
+    // show product illustration
+
+    public function getProductIllustration($id)
+    {
+        $product = Product::findOrFail($id);
+        return view('dashboard.product.illustration', compact('product'));
     }
 
-    public function getProductById($id)
-    {
-        $product = Product::findOrFail($id);
-        return response()->json($product);
-    }
+
 
     /**
      * Remove the specified resource from storage.
@@ -142,7 +162,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        Product::findOrFail($id)->delete();
+        $product = Product::findOrFail($id);
+        $product->delete();
         return response()->json(['success' => 'Sản phẩm đã được xóa thành công']);
     }
 }

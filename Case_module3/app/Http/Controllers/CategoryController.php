@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\category;
+use App\Http\Requests\CategoryRequest;
 
 
 class CategoryController extends Controller
@@ -11,7 +12,8 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::withTrashed()
+            ->get();
 
         return view('dashboard.category.index', compact(['categories']));
     }
@@ -32,14 +34,19 @@ class CategoryController extends Controller
         return view('dashboard.category.create', compact('categories'));
     }
 
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
+        // $validator = CategoryRequest::make($request->all());
+        // if ($validator->fails()) {
+        //     return response()->json(['errors' => $validator->error()->all()]);
+        // }
         $category = new Category();
         $category->name = $request->category_name;
         $category->save();
 
         return response()->json($category);
     }
+
 
     /**
      * Display the specified resource.
@@ -79,7 +86,7 @@ class CategoryController extends Controller
         $category->name = $request->category_name;
 
         // Lưu
-        $category->save();  
+        $category->save();
 
         return;
     }
@@ -92,6 +99,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->delete();
+        return response()->json(['success' => 'Xóa thành công']);
     }
 }

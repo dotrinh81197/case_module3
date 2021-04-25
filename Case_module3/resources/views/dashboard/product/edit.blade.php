@@ -31,39 +31,37 @@
         <textarea name="content_benefit" id="summernote" cols="100" rows="10" >{{$product->benefit}}</textarea>      
      </div>
     
-    </div>
-    <div class="row">
-        <div class="col-md-12 mb-2">
+    <div class="form-row">
+     
+        <div class="form-group col-md-12 mb-2 ml-3">
+            <h3>Ví dụ minh họa</h3>
+           
             <img id="image_preview_container" src="{{ asset('public/image/image-preview.png') }}"
                 alt="preview image" style="max-height: 350px;">
         </div>
         <div class="col-md-12">
             <div class="form-group">
-                <input type="file" name="product_image" placeholder="Choose image" id="image">
+                <input type="file" name="illustration_image" placeholder="Choose image" id="image">
                 <span class="text-danger">{{ $errors->first('title') }}</span>
             </div>
         </div>
           
-          
-      
-    </div>  
-   
+    </div>      
     <button type="submit" class="btn btn-success btn-lg btn-submit">HOÀN THÀNH</button>
 
-  </form>
-
-
+    </form> 
 
 </div>
-        <script>
+
+<script>
     $('#summernote').summernote({
       placeholder: '',
       tabsize: 2,
       height: 100
     });
     
-  </script>
-  <script type="text/javascript">
+</script>
+<script type="text/javascript">
      
     $(document).ready(function (e) {
   
