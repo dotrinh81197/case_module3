@@ -11,7 +11,7 @@
     <div class="product_row--item row mt-5" style="background-color: rgb(255, 233, 239);">
         <div class="col-md-8 " >
             <div class="col-md-12 ">
-                <h4 class="py-5">{{$product->name}}</h4>
+                <h4 class="py-3 ">{{$product->name}}</h4>
                 <p>{!!$product->title!!}</p>
                 <div class="icon__moreinfo ">
                     <span class="more-infor">Tìm hiểu thêm</span>

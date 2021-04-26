@@ -27,7 +27,7 @@ use App\Http\Controllers\HomeController;
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/product', [HomeController::class, 'getAllProduct'])->name('getAllProduct');
 Route::get('/product/{product}', [HomeController::class, 'getProductById'])->name('getProductById');
-Route::get('/product/category/{category_name}', [HomeController::class, 'getProductByCategory'])->name('getProductByCategory');
+Route::get('/product/category/{category}', [HomeController::class, 'getProductByCategory'])->name('getProductByCategory');
 
 
 

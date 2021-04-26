@@ -80,22 +80,16 @@
     <div class="py-5 container">
       <div class="product-lists">
         @foreach ($products as $product)
-        <div class="col-md-5 col-xs-5 product-item">
-          <a href="" class="select-item">
-            <img
-              src="{{asset($product->image)}}"
-              alt=""
-              class="product-img"
-            />
-          </a>
+        <div class="col-md-5 col-xs-5 product-item" style="background: url('{{str_replace("\\", "\/", asset($product->image))}}'); background-size:cover">
+         
           <div class="product-item_content">
             <p>{{$product->category->category_name}}</p>
-            <h4>{{$product->name}}</h4>
+            <h4 class="produuct_name" >{{$product->name}}</h4>
           </div>
           <div class="product-item-hover">
             <a href="/product/{{$product->id}}">
               <p>{{$product->category->category_name}}</p>
-              <h4>{{$product->name}}</h4>
+              <h4 class="produuct_name" >{{$product->name}}</h4>
               <p class="content-product">
                 {!!$product->title!!}
               </p>

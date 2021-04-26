@@ -32,5 +32,12 @@ class HomeController extends Controller
         return view('home.product_detail', compact(['categories', 'product']));
     }
 
-    
+    public function getProductByCategory($id)
+    {
+        $products = Product::where('category_id', '=', $id)
+        ->get();
+
+
+        return view('home.productBycategory', compact(['products']));
+    }
 }
