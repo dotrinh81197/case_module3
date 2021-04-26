@@ -8,9 +8,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\User;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\HomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,9 +23,15 @@ use App\Models\User;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+
+Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('/product', [HomeController::class, 'getAllProduct'])->name('getAllProduct');
+Route::get('/product/{product}', [HomeController::class, 'getProductById'])->name('getProductById');
+Route::get('/product/category/{category_name}', [HomeController::class, 'getProductByCategory'])->name('getProductByCategory');
+
+
+
+
 
 
 
@@ -89,5 +95,15 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::put('/{contract}', [ContractController::class, 'update'])->name('contract.update');
         Route::delete('/{contract}', [ContractController::class, 'update'])->name('contract.destroy');
         Route::get('/{contract}/edit', [ContractController::class, 'edit'])->name('contract.edit');
+    });
+
+    Route::middleware('adminlogin')->prefix('blog')->group(function () {
+        // Matches The "/admin/users" URL
+        Route::get('', [BlogController::class, 'index'])->name('blog.index');
+        Route::get('/create/{Product_id}', [BlogController::class, 'create'])->name('blog.create');
+        Route::post('/create/{Product_id}', [BlogController::class, 'store'])->name('blog.store');
+        Route::delete('/{Blog}', [BlogController::class, 'destroy'])->name('blog.destroy');
+        Route::get('/{Blog}/edit', [BlogController::class, 'edit'])->name('blog.edit');
+        Route::put('/{Blog}/edit', [BlogController::class, 'update'])->name('blog.update');
     });
 });

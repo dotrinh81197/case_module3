@@ -16,4 +16,9 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function blog()
+    {
+        return $this->belongsTo(Blog::class);
+    }
 }

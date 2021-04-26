@@ -8,6 +8,7 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 
 
+
 class ProductController extends Controller
 {
     /**
@@ -15,6 +16,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $products = Product::paginate(4);
@@ -47,13 +49,23 @@ class ProductController extends Controller
         $product->name = $request->product_name;
         // dd($request->category);
         $product->category_id = $request->category;
+        $product->title = $request->title;
+
         $product->benefit = $request->content_benefit;
+        $product->info = $request->info;
         if ($request->hasFile('image_illustration')) {
 
             $image = $request->file('image_illustration');
             $path = $image->store('images', 'public');
             $product->illustration = $path;
         }
+        if ($request->hasFile('image_product')) {
+
+            $image = $request->file('image_product');
+            $path = $image->store('images', 'public');
+            $product->image = $path;
+        }
+
         if ($request->hasFile('image_product')) {
 
             $image = $request->file('image_product');
@@ -99,26 +111,42 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate(
-            [
-                'category' => 'bail|required',
-            ],
-            [
-                'category.required' => 'Vui lòng chọn thể loại sản phẩm'
-            ]
-        );
+        // $validatedData = $request->validate(
+        //     [
+        //         'category' => 'bail|required',
+        //     ],
+        //     [
+        //         'category.required' => 'Vui lòng chọn thể loại sản phẩm'
+        //     ]
+        // );
 
-        $product = Product::create($validatedData);
+        // $product = Product::create($validatedData);
         $product = Product::findOrFail($id);
         $product->name = $request->product_name;
         $product->category_id = $request->category;
         $product->benefit = $request->content_benefit;
-
+        $product->title = $request->title;
+        $product->info = $request->info;
         if ($request->hasFile('illustration_image')) {
             // Nếu không thì in ra thông báo
             $image = $request->file('illustration_image');
             $storedPath = $image->move('images', $image->getClientOriginalName());
             $product->illustration = $storedPath;
+        }
+        if ($request->hasFile('product_image')) {
+
+            $product_image = $request->file('product_image');
+            $storedPath = $product_image->move('images', $product_image->getClientOriginalName());
+
+            $product->image = $storedPath;
+        }
+
+        if ($request->hasFile('banner')) {
+
+            $banner = $request->file('banner');
+            $storedPath = $banner->move('images', $banner->getClientOriginalName());
+
+            $product->banner = $storedPath;
         }
         // Nếu có thì thục hiện lưu trữ file vào public/images
 

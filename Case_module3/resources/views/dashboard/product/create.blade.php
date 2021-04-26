@@ -25,28 +25,57 @@
         </div>
     </div>
     <div class="form-row">
+        <label for="inputAddress2">Giới thiệu sản phẩm</label>
+    </div>
+    <div>
+          <textarea name="title" id="summernote" cols="100" rows="10" ></textarea>      
+    </div>
+    <div class="form-row">
       <label for="inputAddress2">Quyền lợi</label>
     </div>
      <div>
-        <textarea name="content_benefit" id="summernote" cols="100" rows="10" ></textarea>      
+        <textarea name="content_benefit" id="summernote1" cols="100" rows="10" ></textarea>      
      </div>
+     <div class="form-row">
+        <label for="inputAddress2">Thông tin chung</label>
+     </div>
+     <div>
+          <textarea name="info" id="summernote2" cols="100" rows="10" ></textarea>      
+     </div>
+      
     
     <div class="form-row">
      
         <div class="form-group col-md-12 mb-2 ml-3">
             <h3>Ví dụ minh họa</h3>
            
-            <img id="image_preview_container" src="{{ asset('public/image/image-preview.png') }}"
+            <img id="image_preview_container" src=""
                 alt="preview image" style="max-height: 350px;">
         </div>
         <div class="col-md-12">
             <div class="form-group">
                 <input type="file" name="illustration_image" placeholder="Choose image" id="image">
-                <span class="text-danger">{{ $errors->first('title') }}</span>
+               
             </div>
         </div>
           
-    </div>      
+    </div>    
+    <div class="form-row">
+     
+        <div class="form-group col-md-12 mb-2 ml-3">
+            <h3>Hình ảnh sản phẩm</h3>
+           
+            <img id="image_preview_container2" src=""
+                alt="preview image" style="max-height: 350px;">
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <input type="file" name="product_image" placeholder="Choose image" id="image2">
+               
+            </div>
+        </div>
+          
+    </div>   
     <button type="submit" class="btn btn-success btn-lg btn-submit">HOÀN THÀNH</button>
 
     </form> 
@@ -59,6 +88,17 @@
       tabsize: 2,
       height: 100
     });
+    $('#summernote1').summernote({
+      placeholder: '',
+      tabsize: 2,
+      height: 100
+    });
+    $('#summernote2').summernote({
+      placeholder: '',
+      tabsize: 2,
+      height: 100
+    });
+    
     
 </script>
 <script type="text/javascript">
@@ -80,6 +120,16 @@
             reader.readAsDataURL(this.files[0]); 
  
         });
+
+        $('#image2').change(function(){
+          
+          let reader = new FileReader();
+          reader.onload = (e) => { 
+            $('#image_preview_container2').attr('src', e.target.result); 
+          }
+          reader.readAsDataURL(this.files[0]); 
+
+      });
  
         $('#upload_image_form').submit(function(e) {
             e.preventDefault();
@@ -103,6 +153,9 @@
             });
         });
     });
+
+     
+    
  
 </script>
 @endsection

@@ -49,13 +49,13 @@ Tip 2: you can also add an image using data-image tag
                     <i class="nc-icon nc-paper-2"></i>
                     <p>Consultations</p>
                 </a>
-            </li>
-            <li>
-                <a class="nav-link" href="{{route('contract.index')}}">
-                    <i class="nc-icon nc-atom"></i>
-                    <p>Contracts</p>
-                </a>
             </li> --}}
+            <li>
+                <a class="nav-link" href="{{route('blog.index')}}">
+                    <i class="nc-icon nc-atom"></i>
+                    <p>BLog Products</p>
+                </a>
+            </li>
             {{-- <li>
                 <a class="nav-link" href="./maps.html">
                     <i class="nc-icon nc-pin-3"></i>

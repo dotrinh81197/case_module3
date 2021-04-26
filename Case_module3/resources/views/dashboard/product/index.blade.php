@@ -12,9 +12,7 @@
                              <h4 class="card-title">DANH SÁCH SẢN PHẨM</h4>
                              <p class="card-product"></p>
                          </div>
-                         @if ($errors->has('category'))
-                         <span class="text-danger">{{ $errors->first('category') }}</span>
-                      @endif
+                     
                          <div class="card-body table-full-width table-responsive">
                              <table class="table table-hover table-striped" id="productTable">
                                
