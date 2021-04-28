@@ -3,7 +3,7 @@
 @section('content_dashboard')
 
 
-         <div class="container-fluid content_dashboard">
+         <div class="container-fluid content_dashboard font-size-large">
              <div class="row">
                  <div class="col-md-12">
 
@@ -52,7 +52,7 @@
                                  </tbody>
                                  <tfoot>
                                      <td>
-                                         <a href="{{route('product.create')}}" class="btn btn-primary" >Thêm sản phẩm</a>
+                                         <a href="{{route('product.create')}}" class="btn btn-primary btn-lg" >Thêm sản phẩm</a>
                                      </td>
                                  </tfoot>
                              </table>

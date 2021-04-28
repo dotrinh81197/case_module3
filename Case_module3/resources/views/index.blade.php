@@ -110,6 +110,13 @@
         <div class="sub-title__line"></div>
         <h5>DỊCH VỤ KHÁCH HÀNG</h5>
       </div>
+      @if ( Session::has('flash_message') )
+             
+              <div class="alert {{ Session::get('flash_type') }}">
+                <script> M.toast({html: '{{ Session::get('flash_message') }}', displayLegth: 1000, timeRemaining: 2000}) </script>
+                  <h3></h3>
+              </div>
+              @endif
       <div class="heading-row">
         <div class="heading-block heading-block__left">
           <h2>THÔNG TIN KHÁCH HÀNG</h2>
@@ -236,16 +243,17 @@
         </h4>
       </div>
       <div class="col-md-8 home-consultant__right"> 
-      
+      <form action="{{route('save_consultation')}}" method="post">
+        @csrf
         <div class="contact-form">
           <div class="col-md-6">
             <div class="form-group">
               <label for="">Họ và tên  <span class="text-required">*</span></label>
-              <input type="text" class="form-control" id="" name="fullname" aria-describedby="texthelp" placeholder="Enter email">
+              <input type="text" class="form-control" id="" name="name" aria-describedby="texthelp" placeholder="Enter email">
             </div>
             <div class="form-group">
               <label for="">Email <span class="text-required">*</span></label>
-              <input type="email" class="form-control" id="" name="mail" aria-describedby="emailHelp" placeholder="Enter email">
+              <input type="email" class="form-control" id="" name="email" aria-describedby="emailHelp" placeholder="Enter email">
             </div>
             
           </div>
@@ -253,7 +261,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="">Số điện thoại <span class="text-required">*</span></label>
-              <input type="email" class="form-control" id="" aria-describedby="emailHelp" placeholder="Enter email">
+              <input type="text" class="form-control" id="" aria-describedby="emailHelp" name="phone" placeholder="Enter phone">
             </div>
             <div class="form-group">
               <label for="">Tỉnh thành phố <span class="text-required">*</span></label>
@@ -269,15 +277,6 @@
         </div>
         <div class="col-md-12"> 
           <div class="form-group">
-            <label for="">Chủ đề quan tâm</label>
-            
-            <select class="custom-select" id="inputGroupSelect01">
-              <option selected>Chọn chủ đề muốn quan tâm</option>
-              <option value="">Thông tin sản phẩm/ Chương trình khuyến mãi</option>
-              <option value=""> Truy vấn thông tin hợp đông </option>
-              <option value="">Khác</option>
-            </select>
-              
               <input class="billing_address_1" name="" type="hidden" value="">
           </div>
           
@@ -297,10 +296,15 @@
           <span>của chúng tôi</span>
         </div>
 
-          <div class="btn-submit">
-            <a>Gởi thông tin</a>
+          {{-- <div class="btn-submit">
+            <a href="javascript:void(0)" type="submit" class="btn">Gởi thông tin</a>
+          </div> --}}
+          <div>
+            <button class="btn button-submit btn-submit" type="submit" > Gởi thông tin</button>
           </div>
     
+      </form>
+        
        
       </div>
    

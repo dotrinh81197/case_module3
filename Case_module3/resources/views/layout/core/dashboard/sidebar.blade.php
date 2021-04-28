@@ -44,12 +44,12 @@ Tip 2: you can also add an image using data-image tag
                     <p>CREATE CONTRACT</p>
                 </a>
             </li>
-            {{-- <li>
+            <li>
                 <a class="nav-link" href="{{route('consultation.index')}}">
                     <i class="nc-icon nc-paper-2"></i>
                     <p>Consultations</p>
                 </a>
-            </li> --}}
+            </li>
             <li>
                 <a class="nav-link" href="{{route('blog.index')}}">
                     <i class="nc-icon nc-atom"></i>

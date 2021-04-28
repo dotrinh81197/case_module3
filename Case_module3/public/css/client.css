@@ -29,6 +29,7 @@ p {
 .image_illustration {
     display: flex;
     text-align: center;
+    
 }
 .info {
     display: flex;

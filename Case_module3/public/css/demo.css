@@ -10,8 +10,9 @@
     --ocean-color: #165baa;
     --light-pink-color: #fa87b3;
 }
-.content_dashboard {
-    font-size: 1.3rem;
+.font-size-large {
+    font-size: 1.7rem;
+    font-weight: 400;
 }
 
 .submit {
@@ -21,4 +22,8 @@
     color: var(--ocean-color);
     font-size: 1.8rem;
     text-align: center;
+}
+.fa-plus-square {
+    font-size: 28px;
+    color: var(--blue-color);
 }

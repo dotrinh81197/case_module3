@@ -12,7 +12,10 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
     use SoftDeletes;
-
+    public function consultation()
+    {
+        return $this->belongsTo(Consultation::class);
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -42,6 +45,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-   
 }

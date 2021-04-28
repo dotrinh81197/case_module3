@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Route;
@@ -9,6 +10,7 @@ use App\Http\Controllers\ContractController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\HomeController;
 
 
@@ -23,21 +25,25 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-
+//client products
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/product', [HomeController::class, 'getAllProduct'])->name('getAllProduct');
 Route::get('/product/{product}', [HomeController::class, 'getProductById'])->name('getProductById');
 Route::get('/product/category/{category}', [HomeController::class, 'getProductByCategory'])->name('getProductByCategory');
 
+//client form customer tao cuoc tu van
+Route::post('/', [ConsultationController::class, 'store'])->name('save_consultation');
 
+// customer-login
+Route::get('/userlogin', [HomeController::class, 'showLogin'])->name('userlogin');
+Route::post('/userlogin', [HomeController::class, 'login'])->name('user.login');
+Route::get('userlogout', [HomeController::class, 'logout'])->name('user.logout');
 
+// admin login
 
-
-
-
-Route::get('/login', [AuthController::class, 'showSignInPage'])->name('loginpage');
-Route::post('/login', [AuthController::class, 'signIn'])->name('login');
-Route::get('/logout', [AuthController::class, 'signOut'])->name('logout');
+Route::get('/login', [AdminController::class, 'showLogin'])->name('loginpage');
+Route::post('/login', [AdminController::class, 'login'])->name('login');
+Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->prefix('admin')->group(function () {
 
@@ -91,10 +97,12 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         // Matches The "/admin/users" URL
         Route::get('', [ContractController::class, 'index'])->name('contract.index');
         Route::get('/create', [ContractController::class, 'create'])->name('contract.create');
+        Route::post('/create', [ContractController::class, 'storeProductMain'])->name('contract.storeProductMain');
         Route::post('/create', [ContractController::class, 'store'])->name('contract.store');
         Route::put('/{contract}', [ContractController::class, 'update'])->name('contract.update');
         Route::delete('/{contract}', [ContractController::class, 'update'])->name('contract.destroy');
         Route::get('/{contract}/edit', [ContractController::class, 'edit'])->name('contract.edit');
+        Route::get('/list_product_sub', [ContractController::class, 'getProduct_subList'])->name('contract.productsub');
     });
 
     Route::middleware('adminlogin')->prefix('blog')->group(function () {
@@ -105,5 +113,14 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::delete('/{Blog}', [BlogController::class, 'destroy'])->name('blog.destroy');
         Route::get('/{Blog}/edit', [BlogController::class, 'edit'])->name('blog.edit');
         Route::put('/{Blog}/edit', [BlogController::class, 'update'])->name('blog.update');
+    });
+
+
+    Route::middleware('adminlogin')->prefix('consultation')->group(function () {
+        // Matches The "/admin/users" URL
+        Route::get('', [ConsultationController::class, 'index'])->name('consultation.index');
+        Route::delete('/{consultation}', [ConsultationController::class, 'destroy'])->name('consultation.destroy');
+        Route::get('/{consultation}/edit', [ConsultationController::class, 'edit'])->name('consultation.edit');
+        Route::put('/{consultation}/edit', [ConsultationController::class, 'update'])->name('consultation.update');
     });
 });

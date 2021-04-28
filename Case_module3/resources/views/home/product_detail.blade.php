@@ -1,16 +1,12 @@
 @extends('layout.master')
 @section('slide')
 <div class="product-detail-header row" style=" background: url('{{str_replace("\\", "\/", asset($product->banner))}}');     background-size: cover;">
-    
-
         <div class="col-md-6 product-detail_info mt-50">
             <div class="content_info mt-5">
                 <h3 style="text-align:center">{{$product->name}}</h3>
                 <p class="title_product">{!!$product->title!!}</p>
             </div>
-           
         </div>
-        
 </div>
 
 
@@ -25,15 +21,19 @@
  </div>
 <div class="container py-5">
    <div class="image_illustration">
-       <h3 style="text-align:center">Ví dụ minh họa</h3>
-    <img src="{{asset($product->illustration)}}" alt="">
+       <h3 style="">Quyền lợi</h3>
    </div>
+   <div class="image_illustration col-md-12">
+        <img src="{{asset($product->illustration)}}" alt="" width="100%">
+   </div>
+  
+  
 
 </div>
 @endsection
 @section('contact')
      <!-- contact -form     -->
-    <div class="py-6 home-consultant container">
+     <div class="py-6 home-consultant container">
       <div class="col-md-4 home-consultant__left">
         <div class="sub-title">
           <div class="sub-title__line"></div>
@@ -44,16 +44,17 @@
         </h4>
       </div>
       <div class="col-md-8 home-consultant__right"> 
-      
+      <form action="{{route('save_consultation')}}" method="post">
+        @csrf
         <div class="contact-form">
           <div class="col-md-6">
             <div class="form-group">
               <label for="">Họ và tên  <span class="text-required">*</span></label>
-              <input type="text" class="form-control" id="" name="fullname" aria-describedby="texthelp" placeholder="Enter email">
+              <input type="text" class="form-control" id="" name="name" aria-describedby="texthelp" placeholder="Enter email">
             </div>
             <div class="form-group">
               <label for="">Email <span class="text-required">*</span></label>
-              <input type="email" class="form-control" id="" name="mail" aria-describedby="emailHelp" placeholder="Enter email">
+              <input type="email" class="form-control" id="" name="email" aria-describedby="emailHelp" placeholder="Enter email">
             </div>
             
           </div>
@@ -61,7 +62,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="">Số điện thoại <span class="text-required">*</span></label>
-              <input type="email" class="form-control" id="" aria-describedby="emailHelp" placeholder="Enter email">
+              <input type="text" class="form-control" id="" aria-describedby="emailHelp" name="phone" placeholder="Enter phone">
             </div>
             <div class="form-group">
               <label for="">Tỉnh thành phố <span class="text-required">*</span></label>
@@ -77,15 +78,6 @@
         </div>
         <div class="col-md-12"> 
           <div class="form-group">
-            <label for="">Chủ đề quan tâm</label>
-            
-            <select class="custom-select" id="inputGroupSelect01">
-              <option selected>Chọn chủ đề muốn quan tâm</option>
-              <option value="">Thông tin sản phẩm/ Chương trình khuyến mãi</option>
-              <option value=""> Truy vấn thông tin hợp đông </option>
-              <option value="">Khác</option>
-            </select>
-              
               <input class="billing_address_1" name="" type="hidden" value="">
           </div>
           
@@ -105,10 +97,15 @@
           <span>của chúng tôi</span>
         </div>
 
-          <div class="btn-submit">
-            <a>Gởi thông tin</a>
+          {{-- <div class="btn-submit">
+            <a href="javascript:void(0)" type="submit" class="btn">Gởi thông tin</a>
+          </div> --}}
+          <div>
+            <button class="btn button-submit btn-submit" type="submit" > Gởi thông tin</button>
           </div>
     
+      </form>
+        
        
       </div>
    

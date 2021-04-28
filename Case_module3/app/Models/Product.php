@@ -21,4 +21,13 @@ class Product extends Model
     {
         return $this->belongsTo(Blog::class);
     }
+
+    public function price()
+    {
+        return $this->belongsTo(Price::class);
+    }
+    public function contract()
+    {
+        return $this->belongsToMany(Contract::class);
+    }
 }

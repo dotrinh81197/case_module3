@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>MB ageas life</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -48,10 +48,11 @@
           </button>
           <div id="navbarContent" class="collapse navbar-collapse">
             <ul class="navbar-nav nav-brand">
-              <img
+              <a href="{{route('index')}}"><img
                 src="https://www.mbageas.life/uploads/X-ak5M5lFNEvGXGUzSMkZ/1598613473300_original.png"
                 alt=""
-              />
+              /></a>
+              
             </ul>
             <ul class="navbar-nav mx-auto">
               <!-- Megamenu-->
@@ -146,15 +147,13 @@
                                   >Sản phẩm chính</span
                                 >
                               </a>
-                              <a href="" class="nav-link sub-menu--item btn">
+                              <a href="/product/category/2" class="nav-link sub-menu--item btn">
                                 <img
                                   src="https://www.mbageas.life/uploads/YNZlFDNu66-l89LGhLElT/1598930878633_original.png "
                                   alt=" "
                                   class="menu-item-img"
                                 />
-                                <span class="nav-link--name text-small"
-                                  >Sản phẩm bổ trợ</span
-                                >
+                                <span class="nav-link--name text-small">Sản phẩm bổ trợ</span>
                               </a>
                             </div>
                           </div>
@@ -183,16 +182,16 @@
             <ul class="navbar-nav mx-2">
        
              
-              @if (isset($customer))
-              <li class="nav-item">Hi {{$customer->name}}</li>
+              @if (isset($user))
+              <li class="nav-item">Hi {{$user->name}}</li>
               <li class="nav-item">
-                <a href="{{route('logout')}}" class="nav-link font-weight-bold text-uppercase"
+                <a href="{{route('user.login')}}" class="nav-link font-weight-bold text-uppercase"
                 >Đăng xuất</a
               >
                  </li>
               @else 
               <li class="nav-item">
-                <a href="{{route('loginpage')}}" class="nav-link font-weight-bold text-uppercase"
+                <a href="{{route('userlogin')}}" class="nav-link font-weight-bold text-uppercase"
                   >Đăng nhập
                 </a>
               </li>

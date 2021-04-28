@@ -4,27 +4,62 @@
 
 
 
-    <div class="content_dashboard font-size-large"> 
-        <div class="content">
-         <div class="container-fluid">
+    <div class="content_dashboard container-fluid"> 
+        
              <div class="row">
-            
-          
+   
                  <div class="col-md-12">
                      <div class="card strpied-tabled-with-hover">
                          <div class="card-header ">
-                             <h4 class="card-title">THỂ LOẠI SẢN PHẨM</h4>
-                             <p class="card-category"></p>
+                             <h4 class="card-title">DANH SÁCH CUỘC HẸN TƯ VẤN</h4>
                          </div>
-                         <div class="card-body table-full-width table-responsive">
-                            
-                             <div id="category_list"></div>
-                             <a href="" class="btn btn-primary btn-lg"  data-toggle="modal" data-target="#categoriesModal">Thêm thể loại sản phẩm</a>
-
-                         </div>
+                         
                      </div> 
                  </div>
-
+             </div>
+         
+            <div>
+            </div>    
+                 <table class="table table-hover table-striped" id="conslutationTable">
+                      
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Tên khách hàng</td>   
+                            <td>Tên tư vấn</td>
+                            <td>Trạng thái</td>
+                            <td>Ngày tạo</td>
+                        </tr>
+                </thead>
+                    
+              
+                 <tbody>
+              
+                            @foreach ($consultations as $key => $consultation)
+                            <tr>
+                              <td>{{$key++}}</td>
+                             <td>{{$consultation->name}}</td>
+                             {{-- <td>{{$consultation->user->name}}</td> --}}
+                             <td></td>
+                             <td>{{$consultation->status}}</td>
+                             <td>{{$consultation->created_at}}</td>
+                             <td>
+                                <a class="btn btn-primary" id="btn-info" href="javascript:void(0)" onclick="">Chi tiết</a>
+                             </td> 
+                             <td>
+                              <a href="javascript:void(0)" class="btn btn-danger" type="button" onclick=""> Hủy   
+                              </a>
+                             </td>
+                            
+                             
+                         </tr>
+                            @endforeach                      
+                 </tbody>
+         
+             </tbody>
+                
+             </table>
+   
      </div>
 
 
@@ -53,7 +88,7 @@
           @endif
           
     
-        <button type="submit" class="btn btn-primary btn-lg" id="btn-submit" > Thêm </button>
+        <button type="submit" class="btn btn-primary" id="btn-submit" > Thêm </button>
 
         </form>
       </div>
@@ -79,7 +114,7 @@
     </div>
   </div>
 </div>
-<script>
+{{-- <script>
   window.onload=loadList
   
 $("#btn-submit").click(function(e){
@@ -100,15 +135,11 @@ $("#btn-submit").click(function(e){
           
           if(response){
               
-              // category = response.name;
+              category = response.name;
               
               $("#categoriesModal").modal('hide');    
-              
-               $("#categoryFrom").trigger("reset");
-               $('body').removeClass('modal-open');
-                $('.modal-backdrop').remove();
+              $("#categoryFrom").trigger("reset");
               loadList();
-              
 
           }
       }
@@ -118,7 +149,7 @@ $("#btn-submit").click(function(e){
 });
 
   
- function openEditForm(idCategory) {
+ function openDetailForm(idCategory) {
         $("#editCategoriesModal").modal();
 
         $.ajax({
@@ -150,8 +181,6 @@ $("#btn-submit").click(function(e){
 
                 // Close Modal
                 $("#editCategoriesModal").modal("hide");
-                $('body').removeClass('modal-open');
-                $('.modal-backdrop').remove();
 
                 // Reload List
                 loadList();
@@ -163,23 +192,23 @@ $("#btn-submit").click(function(e){
        
     }
 
-      function loadList() {
-          var url = `/admin/category/list`;
+    function loadList() {
+        var url = `/admin/category/list`;
 
-          $.ajax({
-              url: url,
+        $.ajax({
+            url: url,
 
-              success: function(xml) {
-                
-                  const categoryListElement = document.querySelector('#category_list');
+            success: function(xml) {
+              
+                const categoryListElement = document.querySelector('#category_list');
 
-                  categoryListElement.innerHTML = xml;
-              },
-              error: function(error) {
-                  console.log("Xảy ra lỗi: " + error.message)
-              }
-          })
-      }
+                categoryListElement.innerHTML = xml;
+            },
+            error: function(error) {
+                console.log("Xảy ra lỗi: " + error.message)
+            }
+        })
+    }
 
   function deleteCategory(idCategory) {
     let  _token=$("input[name=_token]").val()
@@ -202,7 +231,7 @@ $("#btn-submit").click(function(e){
   }
 </script>
   
-
+ --}}
 
 @endsection
 
