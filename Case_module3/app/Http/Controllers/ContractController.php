@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Contract;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Consultation;
 use App\Models\ContractDetail;
 use App\Models\Periodic;
 use App\Models\Price;
@@ -85,9 +86,13 @@ class ContractController extends Controller
                 $contract->product()->attach($products[$i]);
             }
         };
-
+        if (isset($consulation)) {
+            # code...
+        }
         echo "ĐÃ GỞI HỒ SƠ YÊU CẦU BẢO HIỂM ";
     }
+
+
     public function create()
     {
         $products_main = Product::withoutTrashed('products')
@@ -98,16 +103,15 @@ class ContractController extends Controller
             ->get();
         $categories = Category::withTrashed();
         $periodics = Periodic::all();
-        $products = Product::all();
+        // $products = Product::all();
         return view('dashboard.contract.create', compact(['categories', 'products_main', 'products_sub', 'periodics']));
     }
 
-    public function storeProductMain(Request $request)
-    {
-        $contract = new Contract();
 
-        $contract->product_id = $request->product_main;
-        //info
+    public function storeByConsultation(Request $request, $id)
+    {
+
+        $contract = new Contract();
         $full_name =  $contract->full_name = $request->full_name;
         $email = $contract->email = $request->email;
         $phone = $contract->phone = $request->phone;
@@ -116,22 +120,55 @@ class ContractController extends Controller
         $dob = $contract->dob = $request->dob;
         $cmnd = $contract->cmnd = $request->cmnd;
         $job = $contract->job = $request->job;
-
-        $contract->term = $request->term;
-        $contract->periodic_id = $request->periodic_id;
-        $contract->insurance_money = $request->insurance_money;
-        $contract->fee_recurring = $request->fee_recurring;
-        $contract->status = 0;
         $contract->user_id = Auth::user()->id;
 
         $contract->save();
 
-        $contract->product_id = $request->product_main;
+        // $terms = $request->input('term', []);
+        // $periodics_id = $request->input('periodic_id', []);
+        // $fees_recurring = $request->input('fee_recurring', []);
+        // $insurances_money = $request->input('insurance_money', []);
 
 
+        $products = $request->input('products', []);
 
-        return response()->json($contract);
+        // $products is array
+
+        for ($i = 0; $i < count($products); $i++) {
+            //lay ra duoc id cua product
+            $product_id = $products[$i];
+
+            for ($y = 0; $y < count($products); $y++) {
+                $price = new Price();
+                $price->product_id = $product_id;
+
+                $term = $request->input('term', [$y][0]);
+                $price->term = $term[$y][0];
+
+                $periodic_id = $request->input('periodic_product', [$y][0]);
+                $price->periodic_id = $periodic_id[$y][0];
+
+                $fee_recurring = $request->input('fee_recurring', [$y][0]);
+                $price->fee_recurring = $fee_recurring[$y][0];
+
+                $insurance_money = $request->input('insurance_money', [$y][0]);
+                $price->insurance_money = $insurance_money[$y][0];
+                $price->save();
+            }
+
+            if ($products[$i] != '') {
+                $contract->product()->attach($products[$i]);
+            }
+        };
+
+        $consulation =  Consultation::findOrFail($id);
+        $consulation->contract_id = $contract->id;
+        $consulation->save();
+        // dd($consulation);
+        echo "ĐÃ GỞI HỒ SƠ YÊU CẦU BẢO HIỂM ";
     }
+
+
 
     /**
      * Display the specified resource.

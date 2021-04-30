@@ -8,56 +8,58 @@
         
     <div class="row">
 
-        <div class="col-md-12">
-            <div class="card strpied-tabled-with-hover">
+      
+            <div class="col-md-6 ">
                 <div class="card-header ">
-                    <h4 class="card-title">DANH SÁCH CUỘC HẸN TƯ VẤN</h4>
+                    <h4 class="card-title">DANH SÁCH TƯ VẤN</h4>
                 </div>
                 
             </div> 
-        </div>
+            <div class="col-md-6">
+                <a href="javascript:void(0)" class="btn btn-lg btn-success" onclick="showRegisterForm()"> TẠO TÀI KHOẢN TƯ VẤN </a>
+            </div>
     </div>
 
-   <div>
-   </div>    
+     <div>
+     
         <table class="table table-hover table-striped" id="conslutationTable">
              
            <thead>
                <tr>
                    <td>#</td>
-                   <td>Tên khách hàng</td>   
+                   {{-- <td>Mã số</td>    --}}
                    <td>Tên tư vấn</td>
-                   <td>Trạng thái</td>
-                   <td>Ngày đăng ký</td>
+                   <td>Danh sách cuộc tư vấn</td>
+                   <td>Danh sách hợp đồng </td>
                </tr>
            </thead>
            
      
            <tbody>
      
-                   @foreach ($consultations as $key => $consultation)
-                   <tr id="{{$consultation->id}}">
+                   @foreach ($employees as $key => $employee)
+                   <tr id="{{$employee->id}}">
                      <td>{{++$key}}</td>
-                    <td>{{$consultation->name}}</td>
-                    <td><a href="" class="btn btn-success">Acept</a></td>
+                    <td>{{$employee->name}}</td>
+                   
                     <td>
-                      <a href="" class="btn btn-warning">
-                        @if ($consultation->status==0)
-                            Đang chờ
-                        @endif
+                      <a href="" class="btn btn-primary">
+                      Danh sách cuộc tư vấn
                       </a>
                     </td>
-                    <td>{{$consultation->created_at}}</td>
                     <td>
-                       <a class="btn btn-pink" id="btn-info" href="{{route('consultation.showcreatecontract',$consultation->id)}}" >Tạo hợp đồng</a>
-                    </td> 
+                        <a href="" class="btn btn-pink">
+                            Danh sách hợp đồng chăm sóc
+                        </a>    
+                    </td>
+                    
                     <td>
-                      <a href="javascript:void(0)" class="btn btn-danger"  class="text-danger" onclick="deleteConsultation({{$consultation->id}})" > Xóa
+                      <a href="javascript:void(0)" class="btn btn-danger"  class="text-danger" onclick="" > hủy
                       </a>
 
                     </td>
                     <td>
-                   <a href="javascript:void(0)" class="btn btn-orange" onclick="openDetailForm({{$consultation->id}})">Chi tiêt</a>
+                        <a href="javascript:void(0)" class="btn btn-orange" onclick="openEditForm({{$employee->id}})">Chỉnh sửa</a>
                     </td>
                    
                     
@@ -66,8 +68,8 @@
            </tbody>
 
     
-      </table>
-  </div>
+        </table>
+    </div>
 </div>
 
 </form>
@@ -110,15 +112,10 @@
 
 
 {{-- detail consultation --}}
-<div class="modal fade bd-example-modal-lg" id="consultationDetailMoal" tabindex="-1" role="dialog" aria-labelledby="consultationModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" id="userModal" tabindex="-1" role="dialog" aria-labelledby="consultationModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="categoriesModalLabel">Thông tin chi tiết </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+      
       <div class="modal-body">
       </div>
       
@@ -131,7 +128,7 @@
 
   
  function openDetailForm(idConsultation) {
-        $("#consultationDetailMoal").modal();
+        $("#userModal").modal();
        let url = `/admin/consultation/${idConsultation}/showdetail`;
         console.log(url);
 
@@ -141,7 +138,7 @@
           
             success: function(xml) {
             
-                document.querySelector('#consultationDetailMoal .modal-body').innerHTML = xml;
+                document.querySelector('#userModal .modal-body').innerHTML = xml;
             }
            
         })
@@ -166,7 +163,7 @@
   //               alert("Edit successfully")
 
   //               // Close Modal
-  //               $("#consultationDetailMoal").modal("hide");
+  //               $("#userModal").modal("hide");
 
   //               // Reload List
   //               loadList();
@@ -216,6 +213,25 @@
     }
     
   }
+
+  function showRegisterForm() {
+
+        $("#userModal").modal();
+       let url = `/admin/user/show-register-form`;
+        console.log(url);
+
+        $.ajax({
+
+            url:url,
+          
+            success: function(xml) {
+            
+                document.querySelector('#userModal .modal-body').innerHTML = xml;
+            }
+           
+        })
+    }
+  
 </script>
   
 

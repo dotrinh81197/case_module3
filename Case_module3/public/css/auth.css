@@ -1,9 +1,20 @@
-
+:root {
+    --gray-color: rgb(17 40 67 / 50%);
+    --blue-color: #5bc5f2;
+    --pink-color: #fb4390;
+    --text-color: #333;
+    --boder-color: #dbdbdb;
+    --shadow-color: rgb(0 0 0 / 8%);
+    --line-color: #a7a9ad;
+    --subtitle-color: rgb(17 40 67 / 50%);
+    --ocean-color: #165baa;
+    --light-pink-color: #fa87b3;
+}
 @import url("https://fonts.googleapis.com/css?family=Numans");
 
 html,
 body {
-    background-image: url("http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg");
+    background-image: url("https://www.mbageas.life/uploads/OKBkGmn1xQxQucMnRpEM3/1598860060112_original.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     height: 100%;
@@ -11,7 +22,7 @@ body {
 }
 
 .container {
-    height: 100%;
+    height: 120%;
     align-content: center;
 }
 
@@ -26,7 +37,7 @@ body {
 .social_icon span {
     font-size: 60px;
     margin-left: 10px;
-    color: #ffc312;
+    color: var(--light-pink-color);
 }
 
 .social_icon span:hover {
@@ -46,7 +57,6 @@ body {
 
 .input-group-prepend span {
     width: 50px;
-    background-color: #ffc312;
     color: black;
     border: 0 !important;
 }
@@ -69,7 +79,7 @@ input:focus {
 
 .login_btn {
     color: black;
-    background-color: #ffc312;
+    background-color: var(--blue-color);
     width: 100px;
 }
 .register-btn {

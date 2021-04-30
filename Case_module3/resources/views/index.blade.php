@@ -1,4 +1,8 @@
+
 @extends('layout.master')
+    @section('head')
+        
+    @endsection
     @section('slide')
           <section class="py-0">
           <div
@@ -16,24 +20,25 @@
               <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
             <div class="carousel-inner">
+             
               <div class="carousel-item active">
                 <img
                   class="d-block w-100"
-                  src="https://www.mbageas.life/uploads/lh9r7jWfOnSe3ldIMna89/1615517617110_original.jpg"
+                  src="https://www.mbageas.life/uploads/WRS-bynprm7WZpzd3xp2j/1618476771510_original.jpg"
                   alt="First slide"
                 />
               </div>
               <div class="carousel-item">
                 <img
                   class="d-block w-100"
-                  src="https://www.mbageas.life/uploads/lh9r7jWfOnSe3ldIMna89/1615517617110_original.jpg"
+                  src="https://www.mbageas.life/uploads/JpCfjYDkMSFtO_0xa2cWo/1615351388732_original.jpg"
                   alt="Second slide"
                 />
               </div>
               <div class="carousel-item">
                 <img
                   class="d-block w-100"
-                  src="https://www.mbageas.life/uploads/lh9r7jWfOnSe3ldIMna89/1615517617110_original.jpg"
+                  src="https://www.mbageas.life/uploads/1poeaAEdU_6PFXYWapsAS/1615351283621_original.jpg"
                   alt="Third slide"
                 />
               </div>

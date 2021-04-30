@@ -10,9 +10,10 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $employees = User::where('roles', '=', 1)
+            ->get();
 
-        return view('dashboard.list', compact('users'));
+        return view('dashboard.user.list', compact('employees'));
     }
 
     /**
@@ -26,6 +27,10 @@ class UserController extends Controller
         return view('user.create', compact('cities'));
     }
 
+    public function showRegisterForm()
+    {
+        return view('dashboard.user.registerForm');
+    }
     /**
      * Store a newly created resource in storage.
      *

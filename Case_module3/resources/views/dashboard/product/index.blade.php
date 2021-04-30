@@ -64,7 +64,7 @@
      
 {{-- show benefit modal       --}}
          <div class="modal" id="showBenefitModal">
-          <div class="modal-dialog  modal-xl">
+          <div class="modal-dialog modal-lg">
             <div class="modal-content">
             
               <!-- Modal body -->
@@ -87,7 +87,7 @@
           <!-- The Modal -->
           {{-- show illustration --}}
           <div class="modal" id="showIllustrationModal">
-            <div class="modal-dialog  modal-xl">
+            <div class="modal-dialog modal-lg">
               <div class="modal-content">
               
                 <!-- Modal body -->

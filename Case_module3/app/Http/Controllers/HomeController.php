@@ -83,4 +83,9 @@ class HomeController extends Controller
 
         return view('home.productBycategory', compact(['products']));
     }
+
+    public function showHomeContract()
+    {
+        return view('home.contract');
+    }
 }

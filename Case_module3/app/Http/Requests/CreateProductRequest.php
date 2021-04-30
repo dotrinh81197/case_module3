@@ -24,13 +24,22 @@ class CreateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'product_name' => 'required',
+            'product_name' => 'bail|required',
+            'category' => 'bail|required',
+            'title' => 'bail|required',
+            'info' => 'bail|required',
+
+
+
         ];
     }
     public function messages()
     {
         $messages = [
             'product_name.required' => 'Tên sản phẩm không được trống',
+            'category.required' => 'Thể loại  sản phẩm không được trống',
+            'title.required' => 'Tiêu đề sản phẩm không được trống',
+            'info.required' => 'Tên sản phẩm không được trống',
         ];
         return $messages;
     }

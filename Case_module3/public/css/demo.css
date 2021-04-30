@@ -27,3 +27,44 @@
     font-size: 28px;
     color: var(--blue-color);
 }
+.btn-pink {
+    color: #fff;
+    background-color: var(--light-pink-color) !important;
+}
+.btn-orange {
+    color: rgb(205, 50, 50);
+    background-color: var(--blue-color) !important;
+}
+table {
+    width: 100% !important;
+}
+
+/* register form */
+.note {
+    text-align: center;
+    height: 80px;
+    background: -webkit-linear-gradient(left, #0072ff, #8811c5);
+    color: #fff;
+    font-weight: bold;
+    line-height: 80px;
+}
+/* .form-content {
+    padding: 5%;
+    border: 1px solid #ced4da;
+    margin-bottom: 2%;
+} */
+.form-control {
+    border-radius: 1.5rem;
+}
+.btnSubmit {
+    border: none;
+    border-radius: 1.5rem;
+    padding: 1%;
+    width: 20%;
+    cursor: pointer;
+    background: #0062cc;
+    color: #fff;
+}
+.register-form {
+    width: 100%;
+}

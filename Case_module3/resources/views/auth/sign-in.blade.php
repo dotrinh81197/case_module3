@@ -1,13 +1,15 @@
 @extends('layout.auth-admin')
 @section('auth-error')
 <div class="card-header">
-    <span>
-        @if (session('registerError'))
-        <div class="alert alert-danger" role="alert">
-            {{ session('registerError') }}
-        </div>
-    @endif
-      </span>        
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif       
 </div>	
 			
 @endsection
@@ -34,8 +36,10 @@
         <div class="form-group">
             <input type="submit" value="Login" class="btn float-right login_btn">
         </div>
+       
     </form>
 </div>
+
 @endsection
 
   

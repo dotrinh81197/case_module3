@@ -2,14 +2,27 @@
 
 @section('content_dashboard')
 <div class="container content_dashboard">
-    <h1>SỬA SẢN PHẨM</h1>
+    <h1>TẠO MỚI SẢN PHẨM</h1>
   <form action="{{route('product.store')}}"  method="post" enctype="multipart/form-data" style="font-size: 15px;">
     @csrf
-   
+    <div class="row">
+        @if ($errors->any())
+        <div class="alert alert-danger col-md-6">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+    </div>
+    
+  
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="">Tên sản phẩm</label>
-        <input type="text" class="form-control" name="product_name" id=""  required>
+        <input type="text" class="form-control" name="product_name" id=""  >
+        
       </div>
       
     </div>

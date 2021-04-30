@@ -34,6 +34,13 @@ Route::get('/product/category/{category}', [HomeController::class, 'getProductBy
 //client form customer tao cuoc tu van
 Route::post('/', [ConsultationController::class, 'store'])->name('save_consultation');
 
+//contract find
+
+Route::get('/contract', [HomeController::class, 'showHomeContract'])->name('home.contract');
+Route::get('/product', [HomeController::class, 'getAllProduct'])->name('getAllProduct');
+Route::get('/product/{product}', [HomeController::class, 'getProductById'])->name('getProductById');
+Route::get('/product/category/{category}', [HomeController::class, 'getProductByCategory'])->name('getProductByCategory');
+
 // customer-login
 Route::get('/userlogin', [HomeController::class, 'showLogin'])->name('userlogin');
 Route::post('/userlogin', [HomeController::class, 'login'])->name('user.login');
@@ -89,6 +96,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::get('/create', [ConsultationController::class, 'create'])->name('consultation.create');
         Route::post('/create', [ConsultationController::class, 'store'])->name('consultation.store');
         Route::put('/{Consultation}', [ConsultationController::class, 'update'])->name('consultation.update');
+        Route::get('/create-contract/{Consultation}', [ConsultationController::class, 'showPageCreateContractByConsultaion'])->name('consultation.showcreatecontract');
         Route::delete('/{Consultation}', [ConsultationController::class, 'update'])->name('consultation.destroy');
         Route::get('/{Consultation}/edit', [ConsultationController::class, 'edit'])->name('consultation.edit');
     });
@@ -97,8 +105,9 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         // Matches The "/admin/users" URL
         Route::get('', [ContractController::class, 'index'])->name('contract.index');
         Route::get('/create', [ContractController::class, 'create'])->name('contract.create');
-        Route::post('/create', [ContractController::class, 'storeProductMain'])->name('contract.storeProductMain');
+
         Route::post('/create', [ContractController::class, 'store'])->name('contract.store');
+        Route::post('/create-by-consultation/{consultation}', [ContractController::class, 'storeByConsultation'])->name('contract.storebyConsultation');
         Route::put('/{contract}', [ContractController::class, 'update'])->name('contract.update');
         Route::delete('/{contract}', [ContractController::class, 'update'])->name('contract.destroy');
         Route::get('/{contract}/edit', [ContractController::class, 'edit'])->name('contract.edit');
@@ -119,8 +128,17 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::middleware('adminlogin')->prefix('consultation')->group(function () {
         // Matches The "/admin/users" URL
         Route::get('', [ConsultationController::class, 'index'])->name('consultation.index');
-        Route::delete('/{consultation}', [ConsultationController::class, 'destroy'])->name('consultation.destroy');
-        Route::get('/{consultation}/edit', [ConsultationController::class, 'edit'])->name('consultation.edit');
+        Route::get('/{consultation}/showdetail', [ConsultationController::class, 'show'])->name('consultation.showdetail');
         Route::put('/{consultation}/edit', [ConsultationController::class, 'update'])->name('consultation.update');
+        Route::delete('/{consultation}', [ConsultationController::class, 'destroy'])->name('consultation.destroy');
+    });
+
+    Route::middleware('adminlogin')->prefix('user')->group(function () {
+        // Matches The "/admin/users" URL
+        Route::get('', [UserController::class, 'index'])->name('user.index');
+        Route::get('/show-register-form', [UserController::class, 'showRegisterForm'])->name('user.showregisterform');
+        Route::get('/{user}/showdetail', [UserController::class, 'show'])->name('user.showdetail');
+        Route::put('/{user}/edit', [UserController::class, 'update'])->name('user.update');
+        Route::delete('/{user}', [UserController::class, 'destroy'])->name('user.destroy');
     });
 });

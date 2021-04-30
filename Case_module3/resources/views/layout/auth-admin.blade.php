@@ -22,15 +22,16 @@
 </head>
 <body>
 <div class="container">
-	<div class="d-flex justify-content-center h-110">
+	<div class="d-flex justify-content-center">
 		<div class="card">
 			<div class="card-header">
-				<h3>Sign In</h3>
+				<img src="https://www.mbageas.life/uploads/X-ak5M5lFNEvGXGUzSMkZ/1598613473300_original.png" alt="" width="50%">
 				<div class="d-flex justify-content-end social_icon">
 					<span><i class="fab fa-facebook-square"></i></span>
 					<span><i class="fab fa-google-plus-square"></i></span>
 					<span><i class="fab fa-twitter-square"></i></span>
 				</div>
+
 			</div>
 			@yield('auth-error')
 			@yield('auth-body')  
@@ -46,7 +47,7 @@
 				</div>
 			</div>
 	    </div>
-     </div>
+	</div>
 </div>
 </body>
 </html>

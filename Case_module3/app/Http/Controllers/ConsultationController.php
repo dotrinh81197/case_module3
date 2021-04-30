@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Consultation;
+use App\Models\Periodic;
+use App\Models\Product;
 use Illuminate\Support\Facades\Session;
 
 
@@ -14,7 +17,10 @@ class ConsultationController extends Controller
 
     public function index()
     {
-        $consultations = Consultation::all();
+        // lấy ra các cuộc tư vấn chưa có hđ
+
+        $consultations = Consultation::where('contract_id', '=', NULL)
+            ->get();
         // dd($consultations);
 
         return view('dashboard.consultation.index', compact(['consultations']));
@@ -52,6 +58,22 @@ class ConsultationController extends Controller
         return redirect()->route('index');
     }
 
+    public function showPageCreateContractByConsultaion($id)
+    {
+        //id la consultation_id
+        $consultation = Consultation::findOrFail($id);
+        $products_main = Product::withoutTrashed('products')
+            ->where('category_id', 1)
+            ->get();
+        $products_sub = Product::withoutTrashed('products')
+            ->where('category_id', '<>', 1)
+            ->get();
+        $categories = Category::withTrashed();
+        $periodics = Periodic::all();
+        // $products = Product::all();
+        return view('dashboard.contract.create', compact(['categories', 'products_main', 'products_sub', 'periodics', 'consultation']));
+        # code...
+    }
 
 
 
@@ -96,6 +118,13 @@ class ConsultationController extends Controller
         $consultation->save();
 
         return;
+    }
+
+    public function show($id)
+    {
+        $consultation = Consultation::findOrFail($id);
+
+        return  view('dashboard.consultation.detail-form', compact('consultation'));
     }
 
     /**
