@@ -10,11 +10,18 @@
     --ocean-color: #165baa;
     --light-pink-color: #fa87b3;
 }
+
 .font-size-large {
     font-size: 1.7rem;
     font-weight: 400;
 }
-
+.sub-menu {
+    position: relative;
+    display: none;
+}
+.menu-item a:hover .sub-menu li {
+    display: block;
+}
 .submit {
     text-align: center;
 }
@@ -31,12 +38,16 @@
     color: #fff;
     background-color: var(--light-pink-color) !important;
 }
-.btn-orange {
+.btn-yellow {
     color: rgb(205, 50, 50);
-    background-color: var(--blue-color) !important;
+    background-color: yellow !important;
 }
 table {
     width: 100% !important;
+}
+thead {
+    font-size: 1em;
+    color: var(--pink-color);
 }
 
 /* register form */

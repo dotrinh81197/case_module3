@@ -1,5 +1,6 @@
 <div class="container register-form">
-    <div class="form">
+    <form action="">
+        <div class="form">
        
         <div class="form-content">
             <div class="row">
@@ -20,7 +21,14 @@
                     </div>
                 </div>
             </div>
+            @if ($errors->any())
+            @foreach($errors->all() as $nameError)
+                <p style="color:red">{{ $nameError }}</p>
+            @endforeach
+            @endif
             <button type="button" class="btnSubmit">Submit</button>
         </div>
     </div>
+    </form>
+    
 </div>

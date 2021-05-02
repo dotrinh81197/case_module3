@@ -45,23 +45,29 @@ Tip 2: you can also add an image using data-image tag
                 </a>
             </li>
             <li>
+                <a class="nav-link" href="{{route('contract.list')}}">
+                    <i class="nc-icon nc-notes"></i>
+                    <p>LIST CONTRACT</p>
+                </a>
+            </li>
+            <li>
                 <a class="nav-link" href="{{route('consultation.index')}}">
                     <i class="nc-icon nc-paper-2"></i>
                     <p>Consultations</p>
                 </a>
             </li>
-            <li>
+            {{-- blog     --}}
+            {{-- <li>
                 <a class="nav-link" href="{{route('blog.index')}}">
                     <i class="nc-icon nc-atom"></i>
                     <p>BLog Products</p>
                 </a>
-            </li>
+            </li> --}}
             {{-- <li>
-                <a class="nav-link" href="./maps.html">
-                    <i class="nc-icon nc-pin-3"></i>
-                    <p>Maps</p>
+                <a class="nav-link" href="">
+                    <i class="nc-icon nc-atom"></i>                    <p>Maps</p>
                 </a>
-            </li>
+            </li> --}}
             <li>
                 <a class="nav-link" href="./notifications.html">
                     <i class="nc-icon nc-bell-55"></i>
@@ -73,7 +79,7 @@ Tip 2: you can also add an image using data-image tag
                     <i class="nc-icon nc-alien-33"></i>
                     <p>Upgrade to PRO</p>
                 </a>
-            </li> --}}
+            </li>
         </ul>
     </div>
 </div>

@@ -6,6 +6,8 @@
             <td>Thể loại</td>   
             <td>Quyền lợi</td>
             <td>Ví dụ minh họa</td>
+            <td></td>
+            <td></td>
         </tr>
        
     </thead>

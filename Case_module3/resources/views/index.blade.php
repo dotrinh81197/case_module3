@@ -89,12 +89,12 @@
          
           <div class="product-item_content">
             <p>{{$product->category->category_name}}</p>
-            <h4 class="produuct_name" >{{$product->name}}</h4>
+            <h4 class="product_name" >{{$product->name}}</h4>
           </div>
           <div class="product-item-hover">
             <a href="/product/{{$product->id}}">
               <p>{{$product->category->category_name}}</p>
-              <h4 class="produuct_name" >{{$product->name}}</h4>
+              <h4 class="product_name" >{{$product->name}}</h4>
               <p class="content-product">
                 {!!$product->title!!}
               </p>
@@ -156,16 +156,16 @@
           <a href="" class="feature-item_link">
             <div class="feature-item_icon">
               <img
-                src="https://www.mbageas.life/home/images/refund.svg"
+                src="https://www.mbageas.life/home/images/card.svg"
                 alt="ImageSeo"
                 class="refund-icon"
                 style="opacity: 1"
               />
             </div>
             <div class="refund-content">
-              <h4 class="">Giải quyết quyền lợi bảo hiểm</h4>
+              <h4 class="">Phương thức đóng phí </h4>
               <p class="">
-                Cách thức nhanh chóng để yêu cầu Giải quyết quyền lợi bảo hiểm
+                Hướng dẫn hình thức thanh toán bằng tiền mặt hoặc trực tuyến
               </p>
             </div>
             <div class="icon__moreinfo">
@@ -178,16 +178,16 @@
           <a href="" class="feature-item_link">
             <div class="feature-item_icon">
               <img
-                src="https://www.mbageas.life/home/images/refund.svg"
+                src="https://www.mbageas.life/home/images/shipping.svg"
                 alt="ImageSeo"
                 class="refund-icon"
                 style="opacity: 1"
               />
             </div>
             <div class="refund-content">
-              <h4 class="">Giải quyết quyền lợi bảo hiểm</h4>
+              <h4 class="">Thay đổi thông tin hợp đồng</h4>
               <p class="">
-                Cách thức nhanh chóng để yêu cầu Giải quyết quyền lợi bảo hiểm
+                Cách thức liên hệ với chúng tôi để yêu cầu thay đổi thông tin trên Hợp đồng bảo hiểm
               </p>
             </div>
             <div class="icon__moreinfo">

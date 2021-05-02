@@ -1,12 +1,9 @@
 @extends('layout.master')
 
 @section('content')
-
 <div class="s01 search_contract" style="background: url('https://www.mbageas.life/uploads/JEmpVqK2Nzv4jDXM7DCjB/1608283094585_original.jpg')">
   <form action="{{route('home.contract.find')}}" >
-    <fieldset>
-      <legend>Tra cứu thông tin hợp đồng</legend>
-    </fieldset>
+   
     <div class="inner-form">
       <div class="input-field first-wrap">
         <input
@@ -23,8 +20,42 @@
     </div>
   </form>
 </div>
+<div class="s01 search_contract" style="background: url('https://www.mbageas.life/uploads/JEmpVqK2Nzv4jDXM7DCjB/1608283094585_original.jpg')">
+     <table class="table table-borderless table-hover">
+        <thead class="thead-light">
+          <tr>
+           <th>Mã số hợp đồng</th>
+           <th>Tên khách hàng</th>
+           <th>Ngày đăng ký</th>
+           <th>Tư vấn viên</th>
+           <th></th>
+          </tr>
+            
+        </thead>
+        <tbody>
+         @if (empty($contracts))
+         <tr>
+           KHÔNG CÓ HỢP ĐỒNG BẠN TÌM KIẾM
+         </tr>   
+          
+         @else
+            @foreach ($contracts as $contract)
+                <tr>
+                    <td>{{$contract->id}}</td>
+                    <td>{{$contract->full_name}}</td>
+                    <td>{{$contract->created_at}}</td>
+                    <td>{{$contract->user->name}}</td>
+                    
+                </tr>
+            @endforeach
+        </tbody>
+        
+    </table>
+ @endif
+
+</div>
 @endsection
-@section('contact')
+{{-- @section('contact')
      <!-- contact -form     -->
      <div class="py-6 home-consultant container">
       <div class="col-md-4 home-consultant__left">
@@ -93,7 +124,7 @@
           {{-- <div class="btn-submit">
             <a href="javascript:void(0)" type="submit" class="btn">Gởi thông tin</a>
           </div> --}}
-          <div>
+          {{-- <div>
             <button class="btn button-submit btn-submit" type="submit" > Gởi thông tin</button>
           </div>
     
@@ -103,7 +134,5 @@
       </div>
    
     </div>
-    @endsection 
+    @endsection  --}}
 
-
-    

@@ -6,10 +6,9 @@
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
    <meta name="csrf-token" content="{{ csrf_token() }}">
    <link rel="icon" type="image/png" href="{{asset('img/favicon.ico')}}" />
-   <link
-       href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
-       rel="stylesheet"
-     />
+   <link rel="preconnect" href="https://fonts.gstatic.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lobster&display=swap" rel="stylesheet"/>
     
      <link
        href="{{asset('css/light-bootstrap-dashboard.css?v=2.0.0')}}"       rel="stylesheet"

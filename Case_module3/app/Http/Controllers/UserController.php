@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
@@ -21,11 +22,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $users = User::all();
-        return view('user.create', compact('cities'));
-    }
+
 
     public function showRegisterForm()
     {
@@ -37,20 +34,22 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RegisterRequest $request)
     {
 
         $user = new User();
         $user->name     = $request->input('name');
         $user->email    = $request->input('email');
-        $user->dob      = $request->input('dob');
+        $user->password      = bcrypt($request->input('password'));
         $user->save();
 
         //dung session de dua ra thong bao
-        Session::flash('success', 'Tạo mới thành viên thành công');
+        Session::flash('success', 'Tạo mới tài khoản thành công');
         //tao moi xong quay ve trang danh sach khach hang
         return redirect()->route('user.create');
     }
+
+   
 
     /**
      * Display the specified resource.

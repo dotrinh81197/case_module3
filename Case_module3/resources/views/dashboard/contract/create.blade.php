@@ -4,37 +4,37 @@
 
 <div class="container content_dashboard font-size-large">
     <h1> HỒ SƠ YÊU CẦU HỢP ĐỒNG BẢO HIỂM ĐIỆN TỬ</h1>
-   @if ($consultation)
-  <form action="{{route('contract.storebyConsultation',$consultation->id)}}" method="post">
-    @csrf
-    <div class="py-3">
+   @if (!empty($consultation))
+     <form action="{{route('contract.storebyConsultation',$consultation->id)}}" method="post">
+         @csrf
+        <div class="py-3">
         <h3>Thông tin Sản phẩm và Hợp đồng bảo hiểm</h3>
-    </div>
+        </div>
     
-    <div class="py-5">
-        <h3>Thông tin BMBH</h3>
+        <div class="py-5">
+            <h3>Thông tin BMBH</h3>
         
         
-        <div class="form-group row">
-            <label for="" class="col-sm-2 col-form-label">HỌ VÀ TÊN</label>
-            <div class="col-sm-6">
-              <input type="text" class="form-control" id="" value="{{$consultation->name}}" name="full_name" readonly>
+            <div class="form-group row">
+                <label for="" class="col-sm-2 col-form-label">HỌ VÀ TÊN</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="" value="{{$consultation->name}}" name="full_name" readonly>
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label for="" class="col-sm-2 col-form-label">Email</label>
-            <div class="col-sm-6">
-              <input type="email" class="form-control" id="" value="{{$consultation->email}}" name="email" readonly>
+            <div class="form-group row">
+                 <label for="" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-6">
+                     <input type="email" class="form-control" id="" value="{{$consultation->email}}" name="email" readonly>
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <label for="" class="col-sm-2 col-form-label">Phone</label>
-            <div class="col-sm-6">
-              <input type="tel" class="form-control" id="" value="{{$consultation->phone}}" name="phone" readonly>
+            <div class="form-group row">
+                <label for="" class="col-sm-2 col-form-label">Phone</label>
+                <div class="col-sm-6">
+                    <input type="tel" class="form-control" id="" value="{{$consultation->phone}}" name="phone" readonly>
+                </div>
             </div>
-        </div>
                  
-        @else
+    @else
         <form action="{{route('contract.store')}}" method="post">
             @csrf
             <div class="py-3">
@@ -64,7 +64,7 @@
             </div>
         </div>
             
-        @endif
+    @endif
         <div class="form-group row">
             <label for="inputPassword" class="col-sm-2 col-form-label">Giới tính</label>
             <div class="col-sm-6">

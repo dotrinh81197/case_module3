@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use PHPUnit\Framework\Constraint\Count;
 use Symfony\Component\Console\Input\Input;
+use App\Models\User;
+use App\Http\Requests\RegisterRequest;
 
 class ContractController extends Controller
 {
@@ -23,6 +25,13 @@ class ContractController extends Controller
         $contracts = Contract::all();
 
         return view('dashboard.contract.index', compact(['contracts']));
+    }
+
+    public function getlist()
+    {
+        $contracts = Contract::all();
+
+        return view('dashboard.contract.list', compact(['contracts']));
     }
 
     public function getProduct_subList()
@@ -92,6 +101,12 @@ class ContractController extends Controller
         echo "ĐÃ GỞI HỒ SƠ YÊU CẦU BẢO HIỂM ";
     }
 
+    public function showRegisterForm($id)
+    {
+        $contract_id = $id;
+
+        return view('dashboard.contract.registerForm', compact('contract_id'));
+    }
 
     public function create()
     {
@@ -169,7 +184,38 @@ class ContractController extends Controller
     }
 
 
+    public function search(Request $request)
+    {
+        $keyword = $request->keyword;
 
+        $contracts = Contract::where('id', 'LIKE', '%__' . $keyword . '%')
+            ->orWhere('full_name', 'like', '%__' . $keyword . '%')
+            ->orWhere('cmnd', 'like', '%__' . $keyword . '%')
+            ->orWhere('email', 'like', '%__' . $keyword . '%')
+            ->orWhere('phone', 'like', '%__' . $keyword . '%')
+            ->get();
+
+
+        return view('home.contract-result', compact('contracts'));
+    }
+
+
+    public function storeCustomer(Request $request)
+    {
+
+        $user = new User();
+        $user->name     = $request->user_name;
+        $user->email    = $request->user_email;
+        $user->password      = bcrypt($request->user_password);
+        $user->roles = 3;
+        $user->contract_id      = $request->user_contract_id;
+
+        $user->save();
+        //dung session de dua ra thong bao
+
+        //tao moi xong quay ve trang danh sach khach hang
+        return;
+    }
     /**
      * Display the specified resource.
      *

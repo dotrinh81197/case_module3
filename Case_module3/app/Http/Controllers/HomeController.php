@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Contracts\Session\Session;
 
 class HomeController extends Controller
 {
@@ -20,19 +21,26 @@ class HomeController extends Controller
         $user = [
             'email' => $request->email,
             'password' => $request->password,
-            'roles' => 2,
+            'roles' => 3,
         ];
+
         if (!Auth::attempt($user)) {
-            return redirect()->route('userlogin')->with('login-error', 'Tài khoản hoặc mật khẩu không đúng!');
+            return redirect()->route('userlogin')->withErrors('login-error', 'Tài khoản hoặc mật khẩu không đúng!');
         } else {
-            return view('index', compact('user'));
+
+            $products = Product::paginate(4);
+            $categories = Category::all();
+            $customer_name = session(['customer_name' => Auth::user()->name]);
+
+            return view('index', compact(['categories', 'products',]));
         }
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::logout();
-        return view('index');
+        $request->session()->forget('customer_name');
+        return redirect()->route('index');
     }
 
     public function register(Request $request)

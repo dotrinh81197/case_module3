@@ -29,6 +29,9 @@
                    <td>Tên tư vấn</td>
                    <td>Trạng thái</td>
                    <td>Ngày đăng ký</td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
                </tr>
            </thead>
            
@@ -57,7 +60,7 @@
 
                     </td>
                     <td>
-                   <a href="javascript:void(0)" class="btn btn-orange" onclick="openDetailForm({{$consultation->id}})">Chi tiêt</a>
+                   <a href="javascript:void(0)" class="btn btn-yellow" onclick="openDetailForm({{$consultation->id}})">Chi tiêt</a>
                     </td>
                    
                     

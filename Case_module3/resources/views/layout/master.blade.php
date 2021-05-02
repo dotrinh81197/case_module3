@@ -181,12 +181,11 @@
               </li>
             </ul>
             <ul class="navbar-nav mx-2">
-       
-             
-              @if (isset($user))
-              <li class="nav-item">Hi {{$user->name}}</li>
+    
+              @if ((session('customer_name')))
+              <li class="nav-item">Hi {{session('customer_name')}}</li>
               <li class="nav-item">
-                <a href="{{route('user.login')}}" class="nav-link font-weight-bold text-uppercase"
+                <a href="{{route('user.logout')}}" class="nav-link font-weight-bold text-uppercase"
                 >Đăng xuất</a
               >
                  </li>
@@ -198,7 +197,6 @@
               </li>
               
               
-            
               @endif
              
             </ul>

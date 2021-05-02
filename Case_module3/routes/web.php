@@ -37,6 +37,9 @@ Route::post('/', [ConsultationController::class, 'store'])->name('save_consultat
 //contract find
 
 Route::get('/contract', [HomeController::class, 'showHomeContract'])->name('home.contract');
+Route::get('/contract/find', [ContractController::class, 'search'])->name('home.contract.find');
+
+
 Route::get('/product', [HomeController::class, 'getAllProduct'])->name('getAllProduct');
 Route::get('/product/{product}', [HomeController::class, 'getProductById'])->name('getProductById');
 Route::get('/product/category/{category}', [HomeController::class, 'getProductByCategory'])->name('getProductByCategory');
@@ -44,7 +47,7 @@ Route::get('/product/category/{category}', [HomeController::class, 'getProductBy
 // customer-login
 Route::get('/userlogin', [HomeController::class, 'showLogin'])->name('userlogin');
 Route::post('/userlogin', [HomeController::class, 'login'])->name('user.login');
-Route::get('userlogout', [HomeController::class, 'logout'])->name('user.logout');
+Route::get('/userlogout', [HomeController::class, 'logout'])->name('user.logout');
 
 // admin login
 
@@ -63,6 +66,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::get('', [UserController::class, 'index'])->name('user.index');
         Route::get('/create', [UserController::class, 'create'])->name('user.create');
         Route::post('/create', [UserController::class, 'store'])->name('user.store');
+
         Route::put('/{user}', [UserController::class, 'update'])->name('user.update');
         Route::delete('/{user}', [UserController::class, 'update'])->name('user.destroy');
         Route::get('/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
@@ -104,9 +108,11 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::middleware('adminlogin')->prefix('contract')->group(function () {
         // Matches The "/admin/users" URL
         Route::get('', [ContractController::class, 'index'])->name('contract.index');
+        Route::get('/list', [ContractController::class, 'getlist'])->name('contract.list');
         Route::get('/create', [ContractController::class, 'create'])->name('contract.create');
-
         Route::post('/create', [ContractController::class, 'store'])->name('contract.store');
+        Route::get('/{contract}/show-register-form', [ContractController::class, 'showRegisterForm'])->name('contract.showregisterform');
+        Route::post('/create/submitRegister', [ContractController::class, 'storeCustomer'])->name('contract.customer.store');
         Route::post('/create-by-consultation/{consultation}', [ContractController::class, 'storeByConsultation'])->name('contract.storebyConsultation');
         Route::put('/{contract}', [ContractController::class, 'update'])->name('contract.update');
         Route::delete('/{contract}', [ContractController::class, 'update'])->name('contract.destroy');
