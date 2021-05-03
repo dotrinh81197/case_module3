@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterRequest;
+use App\Models\Consultation;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
@@ -34,22 +35,25 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(RegisterRequest $request)
     {
 
         $user = new User();
-        $user->name     = $request->input('name');
-        $user->email    = $request->input('email');
-        $user->password      = bcrypt($request->input('password'));
+        $user->name     = $request->user_name;
+        $user->email    = $request->user_email;
+        $user->password      = bcrypt($request->user_password);
+        $user->roles =  $request->user_roles;
+        if ($request->user_contract_id) {
+            $user->contract_id  = $request->user_contract_id;
+        }
         $user->save();
-
         //dung session de dua ra thong bao
-        Session::flash('success', 'Tạo mới tài khoản thành công');
-        //tao moi xong quay ve trang danh sach khach hang
-        return redirect()->route('user.create');
+
+        return response()->json($user);
     }
 
-   
+
 
     /**
      * Display the specified resource.
@@ -57,8 +61,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showListConsultation($id)
     {
+        // $user = User::findOrFail($id);
+        $consultations = Consultation::where('user_id', '=', $id)
+            ->get();
+        // dd($consultations);
+        return view('dashboard.user.listByUserId', compact('consultations'));
     }
 
     /**

@@ -23,4 +23,9 @@ class Contract extends Model
     {
         return $this->belongsTo(Contract_product::class);
     }
+
+    public function price()
+    {
+        return $this->belongsTo(Price::class);
+    }
 }

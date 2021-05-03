@@ -3,40 +3,11 @@
 @section('content_dashboard')
 
 <div class="container content_dashboard font-size-large">
-    <h1> HỒ SƠ YÊU CẦU HỢP ĐỒNG BẢO HIỂM ĐIỆN TỬ</h1>
-   @if (!empty($consultation))
-     <form action="{{route('contract.storebyConsultation',$consultation[0]->id)}}" method="post">
-         @csrf
-        <div class="py-3">
-        <h3>Thông tin Sản phẩm và Hợp đồng bảo hiểm</h3>
-        </div>
-    
-        <div class="py-5">
-            <h3>Thông tin BMBH</h3>
-        
-        
-            <div class="form-group row">
-                <label for="" class="col-sm-2 col-form-label">HỌ VÀ TÊN</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="" value="{{$consultation->name}}" name="full_name" readonly>
-                </div>
-            </div>
-            <div class="form-group row">
-                 <label for="" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-6">
-                     <input type="email" class="form-control" id="" value="{{$consultation->email}}" name="email" readonly>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="" class="col-sm-2 col-form-label">Phone</label>
-                <div class="col-sm-6">
-                    <input type="tel" class="form-control" id="" value="{{$consultation->phone}}" name="phone" readonly>
-                </div>
-            </div>
-                 
-    @else
-        <form action="{{route('contract.store')}}" method="post">
+    <h1>CHỈNH SỬA HỒ SƠ YÊU CẦU HỢP ĐỒNG BẢO HIỂM ĐIỆN TỬ</h1>
+ 
+        <form action="{{route('contract.update', $contract[0]->id)}}" method="post">
             @csrf
+            @method('PUT')
             <div class="py-3">
                 <h3>Thông tin Sản phẩm và Hợp đồng bảo hiểm</h3>
                
@@ -48,65 +19,49 @@
                  <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label">HỌ VÀ TÊN</label>
                  <div class="col-sm-6">
-              <input type="text" class="form-control" id="" value="" name="full_name">
+              <input type="text" class="form-control" id="" value="{{$contract[0]->full_name}}" name="full_name">
             </div>
         </div>
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-6">
-              <input type="email" class="form-control" id="" value="" name="email">
+              <input type="email" class="form-control" id="" value="{{$contract[0]->email}}" name="email">
             </div>
         </div>
         <div class="form-group row">
             <label for="" class="col-sm-2 col-form-label">Phone</label>
             <div class="col-sm-6">
-              <input type="tel" class="form-control" id="" value="" name="phone">
+              <input type="tel" class="form-control" id="" value="{{$contract[0]->phone}}" name="phone">
             </div>
         </div>
             
-    @endif
-        <div class="form-group row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Giới tính</label>
-            <div class="col-sm-6">
-                <div class="form-check form-check-inline">
-
-                    <label class="form-check-label" for="inlineradio1">Nữ</label>
-
-                    <input class="form-check-input" type="radio" id="inlineradio1" name="gender" value="0">
-                </div>
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label" for="inlineradio1">Nam</label>
-
-                    <input class="form-check-input" type="radio" id="inlineradio1" name="gender" value="1">
-                </div> 
-            </div>
-        </div>
+    
         <div class="form-group row">
             <label for="exampleFormControlTextarea1"  class="col-sm-2 col-form-label">Địa chỉ</label>
             <div class="col-md-6">
                
-                <textarea class="form-control" name="address" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea class="form-control" name="address" id="exampleFormControlTextarea1" rows="3">{{$contract[0]->address}}</textarea>
               </div>
         </div>
         <div class="form-group row">
            
             <label for="" class="col-sm-2 col-form-label">Ngày sinh</label>
             <div class="col-sm-6">
-                <input class="form-control" type="date" value="" id="" name="dob">
+                <input class="form-control" type="date" value="{{$contract[0]->dob}}" id="" name="dob">
             </div>
         </div>
         <div class="form-group row">
            
             <label for="" class="col-sm-2 col-form-label">Số giấy tờ tùy thân</label>
             <div class="col-sm-6">
-                <input class="form-control" type="number" value="" id="" name="cmnd">
+                <input class="form-control" type="number" value="{{$contract[0]->cmnd}}" id="" name="cmnd">
             </div>
         </div>
         <div class="form-group row">
            
             <label for="" class="col-sm-2 col-form-label">Nghề nghiệp</label>
             <div class="col-sm-6">
-                <input class="form-control" type="text" value="" id="" name="job">
+                <input class="form-control" type="text" value="{{$contract[0]->job}}" id="" name="job">
             </div>
         </div>
         
@@ -118,8 +73,13 @@
               <label for="">Sản phẩm</label>
               <select class="custom-select custom-select-lg" name="products[]">
  
-                  @foreach ($products_main as $product_main)
-                  <option value="{{$product_main->id}}">{{$product_main->name}}</option>
+                  @foreach ($products_main as $key => $product_main)
+                     @foreach ($contract_products as $contract_product)
+                         @if ($product_main->id == $contract_product->product_id)
+                              <option value="{{$product_main->id}}">{{$product_main->name}}
+                              </option>
+                         @endif
+                     @endforeach
                   @endforeach
               </select>
             </div>

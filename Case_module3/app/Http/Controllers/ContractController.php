@@ -146,10 +146,6 @@ class ContractController extends Controller
 
         $contract->save();
 
-        // $terms = $request->input('term', []);
-        // $periodics_id = $request->input('periodic_id', []);
-        // $fees_recurring = $request->input('fee_recurring', []);
-        // $insurances_money = $request->input('insurance_money', []);
 
 
         $products = $request->input('products', []);
@@ -187,7 +183,8 @@ class ContractController extends Controller
         $consulation->contract_id = $contract->id;
         $consulation->save();
         // dd($consulation);
-        echo "ĐÃ GỞI HỒ SƠ YÊU CẦU BẢO HIỂM ";
+        "ĐÃ GỞI HỒ SƠ YÊU CẦU BẢO HIỂM THEO CUỘC TƯ VẤN";
+        return redirect()->route('contract.list');
     }
 
 
@@ -211,7 +208,9 @@ class ContractController extends Controller
     {
         $contract_products = Contract_product::where('contract_id', '=', $id)->get();
 
-        return view("home.contract-detail", compact('contract_products'));
+        $prices = Price::where('contract_id', '=', $id)->get();
+
+        return view("home.contract-detail", compact(['contract_products', 'prices']));
     }
     public function storeCustomer(Request $request)
     {
@@ -248,7 +247,19 @@ class ContractController extends Controller
      */
     public function edit($id)
     {
-        //
+        $contract = Contract::findOrFail($id)->get();
+        $products_main = Product::withoutTrashed('products')
+            ->where('category_id', 1)
+            ->get();
+        $products_sub = Product::withoutTrashed('products')
+            ->where('category_id', '<>', 1)
+            ->get();
+        $categories = Category::withTrashed();
+        $periodics = Periodic::all();
+        $contract_products = Contract_product::where('contract_id', '=', $id)->get();
+
+
+        return view('dashboard.contract.contract_edit_form', compact(['contract', 'products_main', 'products_sub', 'categories', 'periodics', 'contract_products']));
     }
 
     /**

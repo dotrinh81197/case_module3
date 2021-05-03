@@ -32,19 +32,20 @@ Route::get('/product/{product}', [HomeController::class, 'getProductById'])->nam
 Route::get('/product/category/{category}', [HomeController::class, 'getProductByCategory'])->name('getProductByCategory');
 
 //client form customer tao cuoc tu van
+Route::get('/contact', [HomeController::class, 'showContactForm'])->name('home.contact');
+
 Route::post('/', [ConsultationController::class, 'store'])->name('save_consultation');
 
 //contract find
 
 Route::get('/contract', [HomeController::class, 'showHomeContract'])->name('home.contract');
 Route::get('/contract/find', [ContractController::class, 'search'])->name('home.contract.find');
-// Route::get('/contract/result', [ContractController::class, 'res'])->name('home.contract.find');
 Route::get('/contract/{contract}', [ContractController::class, 'showDetailContract'])->name('home.contract.detail');
 
 
-Route::get('/product', [HomeController::class, 'getAllProduct'])->name('getAllProduct');
-Route::get('/product/{product}', [HomeController::class, 'getProductById'])->name('getProductById');
-Route::get('/product/category/{category}', [HomeController::class, 'getProductByCategory'])->name('getProductByCategory');
+// Route::get('/product', [HomeController::class, 'getAllProduct'])->name('getAllProduct');
+// Route::get('/product/{product}', [HomeController::class, 'getProductById'])->name('getProductById');
+// Route::get('/product/category/{category}', [HomeController::class, 'getProductByCategory'])->name('getProductByCategory');
 
 // customer-login
 Route::get('/userlogin', [HomeController::class, 'showLogin'])->name('userlogin');
@@ -57,21 +58,22 @@ Route::get('/login', [AdminController::class, 'showLogin'])->name('loginpage');
 Route::post('/login', [AdminController::class, 'login'])->name('login');
 Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 
-Route::middleware('auth')->prefix('admin')->group(function () {
+Route::middleware('adminlogin')->prefix('admin')->group(function () {
 
     Route::get('/', function () {
         return view('welcome_dashboard');
     })->name('dashboard.index')->middleware('adminlogin');
 
     Route::middleware('adminlogin')->prefix('user')->group(function () {
-        // Matches The "/admin/users" URL
+        // Matches The "/admin/user" URL
         Route::get('', [UserController::class, 'index'])->name('user.index');
-        Route::get('/create', [UserController::class, 'create'])->name('user.create');
+        // Route::get('/create', [UserController::class, 'create'])->name('user.create');
         Route::post('/create', [UserController::class, 'store'])->name('user.store');
 
         Route::put('/{user}', [UserController::class, 'update'])->name('user.update');
-        Route::delete('/{user}', [UserController::class, 'update'])->name('user.destroy');
+        Route::delete('/{user}', [UserController::class, 'destroy'])->name('user.destroy');
         Route::get('/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+        Route::get('/{user}/show-list-consultation', [UserController::class, 'showListConsultation'])->name('user.showlistconsultation');
     });
 
     Route::middleware('adminlogin')->prefix('category')->group(function () {

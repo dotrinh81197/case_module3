@@ -27,7 +27,7 @@ class ConsultationController extends Controller
         return view('dashboard.consultation.index', compact(['consultations']));
     }
 
-
+    
 
     public function getconsultationList()
     {

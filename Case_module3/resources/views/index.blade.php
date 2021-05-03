@@ -254,7 +254,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="">Họ và tên  <span class="text-required">*</span></label>
-              <input type="text" class="form-control" id="" name="name" aria-describedby="texthelp" placeholder="Enter email">
+              <input type="text" class="form-control" id="" name="name" aria-describedby="texthelp" placeholder="Enter full name">
             </div>
             <div class="form-group">
               <label for="">Email <span class="text-required">*</span></label>
@@ -266,7 +266,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="">Số điện thoại <span class="text-required">*</span></label>
-              <input type="text" class="form-control" id="" aria-describedby="emailHelp" name="phone" placeholder="Enter phone">
+              <input type="tel" class="form-control" id="" aria-describedby="emailHelp" name="phone" placeholder="Enter phone">
             </div>
             <div class="form-group">
               <label for="">Tỉnh thành phố <span class="text-required">*</span></label>

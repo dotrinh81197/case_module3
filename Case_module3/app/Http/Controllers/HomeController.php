@@ -96,4 +96,9 @@ class HomeController extends Controller
     {
         return view('home.contract');
     }
+    
+    public function showContactForm()
+    {
+        return view('home.contactForm');
+    }
 }

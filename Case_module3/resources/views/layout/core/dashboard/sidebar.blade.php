@@ -68,7 +68,7 @@ Tip 2: you can also add an image using data-image tag
                     <i class="nc-icon nc-atom"></i>                    <p>Maps</p>
                 </a>
             </li> --}}
-            <li>
+            {{-- <li>
                 <a class="nav-link" href="./notifications.html">
                     <i class="nc-icon nc-bell-55"></i>
                     <p>Notifications</p>
@@ -79,7 +79,7 @@ Tip 2: you can also add an image using data-image tag
                     <i class="nc-icon nc-alien-33"></i>
                     <p>Upgrade to PRO</p>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </div>

@@ -11,7 +11,7 @@
       
             <div class="col-md-6 ">
                 <div class="card-header ">
-                    <h4 class="card-title">DANH SÁCH TƯ VẤN</h4>
+                    <h4 class="card-title">DANH SÁCH TƯ VẤN VIÊN</h4>
                 </div>
                 
             </div> 
@@ -43,7 +43,7 @@
                     <td>{{$employee->name}}</td>
                    
                     <td>
-                      <a href="" class="btn btn-primary">
+                      <a href="javascript:void(0)" onclick="showListConsultationByUserId({{$employee->id}})" class="btn btn-primary" >
                       Danh sách cuộc tư vấn
                       </a>
                     </td>
@@ -73,45 +73,11 @@
 </div>
 
 </form>
+<div id="listConsultation">
 
+</div>
    
 
-
-<div class="modal fade" id="categoriesModal" tabindex="-1" role="dialog" aria-labelledby="categoriesModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="categoriesModalLabel">Thêm thể loại sản phẩm</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      
-        <form id="categoryFrom" >
-            @csrf
-          <div class="form-group">
-            <label for="category_name" class="col-form-label">Tên thể loại</label>
-            <input type="text" class="form-control" id="category_name" >
-          </div>
-          @if ($errors->any())
-          @foreach($errors->all() as $nameError)
-              <p style="color:red">{{ $nameError }}</p>
-          @endforeach
-          @endif
-          
-    
-        <button type="submit" class="btn btn-primary" id="btn-submit" > Thêm </button>
-
-        </form>
-      </div>
-      
-    </div>
-  </div>
-</div>
-
-
-{{-- detail consultation --}}
 <div class="modal fade bd-example-modal-lg" id="userModal" tabindex="-1" role="dialog" aria-labelledby="consultationModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -125,7 +91,18 @@
 <script>
   window.onload=loadList
   
+function showListConsultationByUserId(IdEmployee) {
+  let url = `/admin/user/${IdEmployee}/show-list-consultation`;
+        console.log(url);
 
+        $.ajax({
+            url:url,
+            success: function(xml) {
+                document.querySelector('#listConsultation').innerHTML = xml;
+            }
+           
+        })
+}
   
  function openDetailForm(idConsultation) {
         $("#userModal").modal();
@@ -218,12 +195,9 @@
 
         $("#userModal").modal();
        let url = `/admin/user/show-register-form`;
-        console.log(url);
-
+        
         $.ajax({
-
             url:url,
-          
             success: function(xml) {
             
                 document.querySelector('#userModal .modal-body').innerHTML = xml;
@@ -231,7 +205,41 @@
            
         })
     }
+    function submitRegister() {
+           let user_name = $("#user_name").val();
+           let user_email = $("#user_email").val();
+           let user_password = $("#user_password").val();
+           let user_roles = $('#user_roles').val();
+           let _token = $("input[name=_token]").val(); 
+      console.log(_token);
+      console.log(user_name);
+      console.log(user_email);
+      console.log(user_password);
+      console.log(user_roles);
+      $.ajax({
+        url: `/admin/user/create`,
+        type: "POST",
+        data: {
+          user_name:user_name,
+          user_email: user_email,
+          user_password:user_password,
+          user_roles : user_roles,
+          _token:_token
+        },
+           
+        success:function () {
+          $("#userModal").modal('hide');
+          alert("ĐĂNG KÝ TÀI KHOẢN TƯ VẤN VIÊN THÀNH CÔNG")
+
+        },
+        error:function(){
+          alert("Có lỗi xảy ra")
+        }
+
+          
+      })
   
+}
 </script>
   
 

@@ -12,4 +12,9 @@ class Price extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function periodic()
+    {
+        return $this->belongsTo(Periodic::class);
+    }
 }

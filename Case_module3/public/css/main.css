@@ -371,6 +371,14 @@ body {
 .search_contract {
     background-size: contain;
 }
+
+.detail-contract {
+    text-align: center;
+    font-weight: 700;
+
+    font-size: 2em;
+    color: var(--blue-color);
+}
 .s01 {
     /* min-height: 100vh; */
     /* display: -ms-flexbox; */
@@ -392,7 +400,7 @@ body {
 }
 
 .s01 form legend {
-    font-size: 72px;
+    font-size: 3em;
     line-height: 1;
     color: var(--pink-color);
     margin-bottom: 60px;

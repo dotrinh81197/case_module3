@@ -23,7 +23,7 @@
                     <div class="form-group">
                         <input type="password" id="user_password" class="form-control" name="user_password" placeholder="Your Password *" value=""/>
                     </div>
-                   
+                   <input type="hidden" id="user_roles" value="3">
                 </div>
             </div>
            

@@ -175,8 +175,8 @@
                 >
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link font-weight-bold text-uppercase"
-                  >Liên hệ</a
+                <a href="{{route('home.contact')}}" class="nav-link font-weight-bold text-uppercase"
+                  >Liên hệ tư vấn</a
                 >
               </li>
             </ul>
@@ -306,7 +306,7 @@
                    </ul>
                  </div>
                  <div class="col-md-3 footer-rigt">
-         
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d956.5234668414207!2d107.59410882914834!3d16.47078399928962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3141a12326cdb531%3A0x442ee302689a70d4!2zODYgTMOqIEzhu6NpLCBQaMO6IEjhu5lpLCBUaMOgbmggcGjhu5EgSHXhur8sIFRo4burYSBUaGnDqm4gSHXhur8gNTMwMDAwLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1620055315733!5m2!1svi!2s" width="300" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                  </div>
                </div>
           

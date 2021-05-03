@@ -58,7 +58,7 @@
 
                     </td>
                     <td>
-                        <a href="javascript:void(0)" class="btn btn-orange" onclick="openEditForm({{$contract->id}})">Chỉnh sửa</a>
+                        <a href="{{route('contract.edit', $contract->id)}}" class="btn btn-orange" >Chỉnh sửa</a>
                     </td>
                     <td>
                       {{-- @php
@@ -122,6 +122,7 @@ function submitRegister() {
            let user_email = $("#user_email").val();
            let user_password = $("#user_password").val();
            let user_contract_id = $("#contract_id").val();
+           let user_roles = $('#user_roles').val();
            let _token = $("input[name=_token]").val(); 
 
         
@@ -135,22 +136,25 @@ function submitRegister() {
           user_email: user_email,
           user_password:user_password,
           user_contract_id: user_contract_id,
+          user_roles : user_roles,
           _token:_token
         },
            
         success:function () {
-          
-          alert("ĐĂNG KÝ THÀNH CÔNG")
+          $("#userModal").modal('hide');
+          alert("ĐĂNG KÝ TÀI KHOẢN KHÁCH HÀNG THÀNH CÔNG")
 
         },
-        // error:function(){
-        // alert("Có lỗi xảy ra")
-        // }
+        error:function(){
+        alert("Có lỗi xảy ra")
+        }
 
           
       })
   
 }
+
+
   //   function submitEdit(idContract) {
      
   //     let category_name = $("#category_name1").val();
