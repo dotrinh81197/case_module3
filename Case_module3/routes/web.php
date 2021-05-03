@@ -38,6 +38,8 @@ Route::post('/', [ConsultationController::class, 'store'])->name('save_consultat
 
 Route::get('/contract', [HomeController::class, 'showHomeContract'])->name('home.contract');
 Route::get('/contract/find', [ContractController::class, 'search'])->name('home.contract.find');
+// Route::get('/contract/result', [ContractController::class, 'res'])->name('home.contract.find');
+Route::get('/contract/{contract}', [ContractController::class, 'showDetailContract'])->name('home.contract.detail');
 
 
 Route::get('/product', [HomeController::class, 'getAllProduct'])->name('getAllProduct');
@@ -97,12 +99,13 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::middleware('adminlogin')->prefix('consultation')->group(function () {
         // Matches The "/admin/users" URL
         Route::get('', [ConsultationController::class, 'index'])->name('consultation.index');
+        Route::get('/set-employee', [ConsultationController::class, 'setEmployee'])->name('consultation.set.employee');
         Route::get('/create', [ConsultationController::class, 'create'])->name('consultation.create');
         Route::post('/create', [ConsultationController::class, 'store'])->name('consultation.store');
-        Route::put('/{Consultation}', [ConsultationController::class, 'update'])->name('consultation.update');
-        Route::get('/create-contract/{Consultation}', [ConsultationController::class, 'showPageCreateContractByConsultaion'])->name('consultation.showcreatecontract');
-        Route::delete('/{Consultation}', [ConsultationController::class, 'update'])->name('consultation.destroy');
-        Route::get('/{Consultation}/edit', [ConsultationController::class, 'edit'])->name('consultation.edit');
+        Route::put('/{consultation}', [ConsultationController::class, 'update'])->name('consultation.update');
+        Route::get('/create-contract/{consultation}', [ConsultationController::class, 'showPageCreateContractByConsultaion'])->name('consultation.showcreatecontract');
+        Route::delete('/{consultation}', [ConsultationController::class, 'update'])->name('consultation.destroy');
+        Route::get('/{consultation}/edit', [ConsultationController::class, 'edit'])->name('consultation.edit');
     });
 
     Route::middleware('adminlogin')->prefix('contract')->group(function () {

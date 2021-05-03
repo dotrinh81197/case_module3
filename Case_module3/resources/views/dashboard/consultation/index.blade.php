@@ -26,8 +26,7 @@
                <tr>
                    <td>#</td>
                    <td>Tên khách hàng</td>   
-                   <td>Tên tư vấn</td>
-                   <td>Trạng thái</td>
+                   <td>Nhận tư vấn</td>
                    <td>Ngày đăng ký</td>
                    <td></td>
                    <td></td>
@@ -42,14 +41,14 @@
                    <tr id="{{$consultation->id}}">
                      <td>{{++$key}}</td>
                     <td>{{$consultation->name}}</td>
-                    <td><a href="" class="btn btn-success">Acept</a></td>
                     <td>
-                      <a href="" class="btn btn-warning">
-                        @if ($consultation->status==0)
-                            Đang chờ
-                        @endif
-                      </a>
-                    </td>
+                      <label class="switch">
+                        <input data-id="{{$consultation->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $consultation->status ? 'checked' : '' }}>
+                        <span class="slider round"></span>
+                      </label>
+                     
+                    </td>  
+                   
                     <td>{{$consultation->created_at}}</td>
                     <td>
                        <a class="btn btn-pink" id="btn-info" href="{{route('consultation.showcreatecontract',$consultation->id)}}" >Tạo hợp đồng</a>
@@ -219,6 +218,25 @@
     }
     
   }
+</script>
+
+<script>
+  $(function() {
+    $('.toggle-class').change(function() {
+        var status = $(this).prop('checked') == true ? 1 : 0; 
+        var consultation_id = $(this).data('id'); 
+         
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: '/admin/consultation/set-employee',
+            data: {'status': status, 'consultation_id': consultation_id},
+            success: function(data){
+              console.log(data.success)
+            }
+        });
+    })
+  })
 </script>
   
 

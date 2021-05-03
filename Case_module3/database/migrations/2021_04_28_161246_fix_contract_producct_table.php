@@ -35,18 +35,7 @@ class FixContractProducctTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('contract_product', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('contract_id');
-            $table->integer('status')->default(0);
-
-            $table->foreign('product_id')->references('id')->on('products');
-            $table->foreign('contract_id')->references('id')->on('contracts');
-
-
-            $table->timestamps();
-        });
+       
     }
 
     /**

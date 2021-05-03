@@ -18,4 +18,9 @@ class Contract extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function contract_product()
+    {
+        return $this->belongsTo(Contract_product::class);
+    }
 }

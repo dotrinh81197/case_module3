@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Consultation;
 use App\Models\Periodic;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 
@@ -127,6 +128,16 @@ class ConsultationController extends Controller
         return  view('dashboard.consultation.detail-form', compact('consultation'));
     }
 
+
+    public function setEmployee(Request $request)
+    {
+        $consultation = Consultation::find($request->consultation_id);
+        $consultation->status = $request->status;
+        $consultation->user_id = Auth::user()->id;
+        $consultation->save();
+
+        return response()->json(['success' => 'Status change successfully.']);
+    }
     /**
      * Remove the specified resource from storage.
      *

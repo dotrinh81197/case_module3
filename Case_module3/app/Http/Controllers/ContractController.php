@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use PHPUnit\Framework\Constraint\Count;
 use Symfony\Component\Console\Input\Input;
 use App\Models\User;
+use App\Models\Contract_product;
 use App\Http\Requests\RegisterRequest;
 
 class ContractController extends Controller
@@ -23,13 +24,18 @@ class ContractController extends Controller
     public function index()
     {
         $contracts = Contract::all();
+        $users = User::all();
 
-        return view('dashboard.contract.index', compact(['contracts']));
+        return view('dashboard.contract.index', compact(['contracts', 'users']));
     }
 
     public function getlist()
     {
         $contracts = Contract::all();
+        // $users = [];
+        // foreach ($contracts as $key => $contract) {
+        //     $users[] = User::where('contract_id', '=', $contract->id);
+        // }
 
         return view('dashboard.contract.list', compact(['contracts']));
     }
@@ -73,28 +79,29 @@ class ContractController extends Controller
             //lay ra duoc id cua product
             $product_id = $products[$i];
 
-            for ($y = 0; $y < count($products); $y++) {
-                $price = new Price();
-                $price->product_id = $product_id;
+            $price = new Price();
+            $price->product_id = $product_id;
+            $price->contract_id = $contract->id;
 
-                $term = $request->input('term', [$y][0]);
-                $price->term = $term[$y][0];
+            $term = $request->input('term', [$i][0]);
+            $price->term = $term[$i][0];
 
-                $periodic_id = $request->input('periodic_product', [$y][0]);
-                $price->periodic_id = $periodic_id[$y][0];
+            $periodic_id = $request->input('periodic_product', [$i][0]);
+            $price->periodic_id = $periodic_id[$i][0];
 
-                $fee_recurring = $request->input('fee_recurring', [$y][0]);
-                $price->fee_recurring = $fee_recurring[$y][0];
+            $fee_recurring = $request->input('fee_recurring', [$i][0]);
+            $price->fee_recurring = $fee_recurring[$i][0];
 
-                $insurance_money = $request->input('insurance_money', [$y][0]);
-                $price->insurance_money = $insurance_money[$y][0];
-                $price->save();
-            }
+            $insurance_money = $request->input('insurance_money', [$i][0]);
+            $price->insurance_money = $insurance_money[$i][0];
+            $price->save();
+
 
             if ($products[$i] != '') {
                 $contract->product()->attach($products[$i]);
             }
-        };
+        }
+
         if (isset($consulation)) {
             # code...
         }
@@ -153,28 +160,28 @@ class ContractController extends Controller
             //lay ra duoc id cua product
             $product_id = $products[$i];
 
-            for ($y = 0; $y < count($products); $y++) {
-                $price = new Price();
-                $price->product_id = $product_id;
+            $price = new Price();
+            $price->product_id = $product_id;
+            $price->contract_id = $contract->id;
+            $term = $request->input('term', [$i][0]);
+            $price->term = $term[$i][0];
 
-                $term = $request->input('term', [$y][0]);
-                $price->term = $term[$y][0];
+            $periodic_id = $request->input('periodic_product', [$i][0]);
+            $price->periodic_id = $periodic_id[$i][0];
 
-                $periodic_id = $request->input('periodic_product', [$y][0]);
-                $price->periodic_id = $periodic_id[$y][0];
+            $fee_recurring = $request->input('fee_recurring', [$i][0]);
+            $price->fee_recurring = $fee_recurring[$i][0];
 
-                $fee_recurring = $request->input('fee_recurring', [$y][0]);
-                $price->fee_recurring = $fee_recurring[$y][0];
+            $insurance_money = $request->input('insurance_money', [$i][0]);
+            $price->insurance_money = $insurance_money[$i][0];
+            $price->save();
 
-                $insurance_money = $request->input('insurance_money', [$y][0]);
-                $price->insurance_money = $insurance_money[$y][0];
-                $price->save();
-            }
 
             if ($products[$i] != '') {
                 $contract->product()->attach($products[$i]);
             }
-        };
+        }
+
 
         $consulation =  Consultation::findOrFail($id);
         $consulation->contract_id = $contract->id;
@@ -188,18 +195,24 @@ class ContractController extends Controller
     {
         $keyword = $request->keyword;
 
-        $contracts = Contract::where('id', 'LIKE', '%__' . $keyword . '%')
-            ->orWhere('full_name', 'like', '%__' . $keyword . '%')
+        $contracts = Contract::where('id', 'LIKE', '%' . $keyword . '%')
+            ->orWhere('full_name', 'like', '%' . $keyword . '%')
             ->orWhere('cmnd', 'like', '%__' . $keyword . '%')
             ->orWhere('email', 'like', '%__' . $keyword . '%')
             ->orWhere('phone', 'like', '%__' . $keyword . '%')
+
             ->get();
 
 
         return view('home.contract-result', compact('contracts'));
     }
 
+    public function showDetailContract($id)
+    {
+        $contract_products = Contract_product::where('contract_id', '=', $id)->get();
 
+        return view("home.contract-detail", compact('contract_products'));
+    }
     public function storeCustomer(Request $request)
     {
 
@@ -214,7 +227,7 @@ class ContractController extends Controller
         //dung session de dua ra thong bao
 
         //tao moi xong quay ve trang danh sach khach hang
-        return;
+        return compact('user');
     }
     /**
      * Display the specified resource.
@@ -258,6 +271,8 @@ class ContractController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $contract = Contract::findOrFail($id);
+        $contract->delete();
+        return response()->json(['success' => 'Hợp đồng đã được hủy thành công']);
     }
 }

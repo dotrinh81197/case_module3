@@ -51,9 +51,9 @@
                     <td>
                        {{$contract->user->name}}  
                     </td>
-                    
+                    @csrf
                     <td>
-                      <a href="javascript:void(0)" class="btn btn-danger"  class="text-danger" onclick="" > hủy
+                      <a href="javascript:void(0)" class="btn btn-danger"  class="text-danger" onclick="deleteContract({{$contract->id}})" > hủy
                       </a>
 
                     </td>
@@ -61,6 +61,13 @@
                         <a href="javascript:void(0)" class="btn btn-orange" onclick="openEditForm({{$contract->id}})">Chỉnh sửa</a>
                     </td>
                     <td>
+                      {{-- @php
+                          var_dump($users)
+                      @endphp
+                      @if (isset($users) && $users->contract_id !='NULL'))
+                      <a href="javascript:void(0)" class="btn btn-success">Đã tạo tài khoản</a>
+
+                      @endif --}}
                         <a href="javascript:void(0)" class="btn btn-success" onclick="openRegisterForm({{$contract->id}})">Tạo tài khoản khách hàng</a>
 
                     </td>
@@ -193,9 +200,9 @@ function submitRegister() {
     //     })
     // }
 
-  function deleteConsultation(idContract) {
+  function deleteContract(idContract) {
     let  _token=$("input[name=_token]").val()
-    let  url =  `/admin/consultation/${idContract}`;
+    let  url =  `/admin/contract/${idContract}`;
    
     console.log( _token);
     if (confirm('Bạn có chắc chắn muốn xóa?')) {
