@@ -29,6 +29,8 @@
         <input class="form-control" type="number" value="" id="" name="fee_recurring[][]">
 
     </td>
-   
+    {{-- <td> 
+        <a href="javascript:void(0)" class="btn btn-danger" type="button" onclick="deleteProductSubRow()"> Xóa   
+    </td> --}}
     
 </tr>

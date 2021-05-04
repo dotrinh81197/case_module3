@@ -75,23 +75,23 @@
                   <li class="nav-item">
                     <a href="#" class="nav-link">
                       <i class="nc-icon nc-zoom-split"></i>
-                      <span class="d-lg-block">&nbsp;Search</span>
+                      <span class="d-lg-block">&nbsp;Tìm kiếm</span>
                     </a>
                   </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
                   <li class="nav-item">
                     <a class="nav-link" href="#pablo">
-                      <span class="no-icon">Account</span>
+                      <span class="no-icon">Tài khoản</span>
                     </a>
                   </li>
                   
                   <li class="nav-item " >
                     @if (!empty(Auth::user()))
-                    <span style="color:blue">Hi {{Auth::user()->name}} </span>
+                    <span style="color:blue">Chào {{Auth::user()->name}} </span>
                     <a class="nav-link" href="{{route('logout')}}">
                      
-                      <span class="no-icon">Log out</span>
+                      <span class="no-icon">Đăng xuất</span>
                     </a>
 
                     @endif

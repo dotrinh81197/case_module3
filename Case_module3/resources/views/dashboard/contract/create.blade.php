@@ -169,7 +169,7 @@
     </form> --}}
     {{-- <form action="">
         @csrf --}}
-        <div class="py-3">
+        <div class="py-3 container">
             <h3>Chọn sản phẩm bổ trợ</h3>
               
               <div class="form-row">
@@ -186,7 +186,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr >
+                        <tr id="0">
                             <td>
                                 <select class="custom-select"  name="products[]" style="width:3">
                                     @foreach ($products_sub as $product_sub)
@@ -218,11 +218,11 @@
         
                             </td>
                             
-                            <td>
+                            {{-- <td>
                                 <a href="javascript:void(0)" class="btn btn-danger" type="button" onclick="deleteProductSubRow()"> Xóa   
                                 </a>
     
-                            </td>
+                            </td> --}}
                            
                             
                         </tr>
@@ -263,8 +263,21 @@
           })
       }
 
-function deleteProductSubRow(params) {
-    
+function deleteProductSubRow(idRow) {
+    let  _token=$("input[name=_token]").val()
+      
+    if (confirm('Bạn có chắc chắn muốn xóa?')) {
+      
+        $.ajax({
+            success:function(response){
+              
+              $('#'+idRow).remove();
+             
+              
+            }
+            
+        })
+    }
     
 }
 </script>

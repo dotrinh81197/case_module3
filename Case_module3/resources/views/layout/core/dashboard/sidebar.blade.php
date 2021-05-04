@@ -23,37 +23,37 @@ Tip 2: you can also add an image using data-image tag
             <li class="nav-item active">
                 <a class="nav-link" href="{{route('user.index')}}">
                     <i class="nc-icon nc-circle-09"></i>
-                    <p>User</p>
+                    <p>Tư vấn viên</p>
                 </a>
             </li>
             <li>
                 <a class="nav-link" href="{{route('product.index')}}">
                     <i class="nc-icon nc-notes"></i>
-                    <p>Products</p>
+                    <p>Sản phẩm</p>
                 </a>
             </li>
             <li>
                 <a class="nav-link" href="{{route('category.index')}}">
                     <i class="nc-icon nc-notes"></i>
-                    <p>Categories</p>
+                    <p>Thể loại</p>
                 </a>
             </li>
             <li>
                 <a class="nav-link" href="{{route('contract.index')}}">
                     <i class="nc-icon nc-notes"></i>
-                    <p>CREATE CONTRACT</p>
+                    <p>TẠO HỢP ĐỒNG</p>
                 </a>
             </li>
             <li>
                 <a class="nav-link" href="{{route('contract.list')}}">
                     <i class="nc-icon nc-notes"></i>
-                    <p>LIST CONTRACT</p>
+                    <p> HỢP ĐỒNG</p>
                 </a>
             </li>
             <li>
                 <a class="nav-link" href="{{route('consultation.index')}}">
                     <i class="nc-icon nc-paper-2"></i>
-                    <p>Consultations</p>
+                    <p>TƯ VẤN</p>
                 </a>
             </li>
             {{-- blog     --}}
